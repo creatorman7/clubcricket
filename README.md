@@ -38,14 +38,21 @@ This platform establishes a digital identity for JSC, positioning it as an inter
 ├── README.md                    # Master documentation & content management
 ├── DEPLOYMENT-HOSTINGER.md      # Step-by-step Hostinger upload instructions
 ├── MIGRATION-GUIDE.md           # 301 redirects, Search Console & Google Business migration
+├── admin/
+│   ├── index.php                # Password-protected content management panel
+│   ├── api.php                  # Authenticated pricing, upload, and delete actions
+│   ├── public-content.php       # Public website content endpoint
+│   └── data/site-content.json   # Saved pricing and gallery listing
 └── assets/
     ├── css/
     │   ├── style.css            # Core design system tokens, typography, glassmorphism
     │   └── components.css       # Section components, hero, pricing, gallery, responsive grids
     ├── js/
     │   ├── jsc-config.js        # Centralized configuration (PRICING, OFFERS, CONTACTS)
+    │   ├── site-content.js      # Loads admin-managed pricing and gallery items
     │   ├── pricing.js           # Interactive pricing calculator & WhatsApp generator
     │   └── main.js              # Navbar, mobile menu, gallery lightbox, scroll animations
+    ├── uploads/                 # Photos and videos uploaded through the admin panel
     ├── images/
     │   ├── hero/                # Cinematic hero cricket batsman vector artwork
     │   ├── facilities/          # Floodlit turf, covered nets, automated bowling machine
@@ -61,44 +68,29 @@ This platform establishes a digital identity for JSC, positioning it as an inter
 
 ---
 
-## 3. How to Update Pricing, Offers & Content (No Developer Needed!)
+## 3. Admin Panel: Update Pricing, Photos & Videos
 
-All dynamic content is controlled in one single file:
-&rarr; **`assets/js/jsc-config.js`**
+Open `https://your-domain.com/admin/` and sign in with the admin password configured during deployment. The panel lets you:
 
-Open this file in any text editor. It has clear comments for every section:
+- Upload and remove gallery photos and videos.
+- Set the rate season, weekday day/night rates, weekend surcharge, and bowling machine package prices.
+- Publish changes directly to the live website.
 
-### Updating Winter / Seasonal Rates
-```javascript
-// In assets/js/jsc-config.js
-pricing: {
-  season: "Winter 2026 Official Rates",
-  weekendChargePercent: 20, // change percentage here
-  facilities: [
-    {
-      id: "turf",
-      dayRate: 800,    // Update day rate
-      nightRate: 800,  // Update night rate
-    },
-    {
-      id: "nets",
-      dayRate: 200,    // Update nets rate
-      nightRate: 200,
-    }
-  ],
-  bowlingMachinePackages: [
-    { overs: 10, price: 100 },
-    { overs: 20, price: 200 },
-    { overs: 30, price: 300 },
-    // ...
-  ]
-}
-```
-The website will automatically calculate:
-- Weekday rates
-- Weekend rates (+20%)
-- Quick calculator totals
-- Pre-filled WhatsApp enquiry messages
+The panel requires PHP 8.1+ and writable `admin/data/` and `assets/uploads/` folders. Follow the [Hostinger setup instructions](./DEPLOYMENT-HOSTINGER.md#admin-panel-setup) once after uploading the website files.
+
+### Admin password setup
+
+1. Generate a password hash on a computer with PHP CLI. This prompts without echoing the password and does not put it in shell history:
+   ```sh
+   read -s ADMIN_PASSWORD
+   printf '\n'
+   printf '%s' "$ADMIN_PASSWORD" | php -r 'echo password_hash(stream_get_contents(STDIN), PASSWORD_DEFAULT), PHP_EOL;'
+   unset ADMIN_PASSWORD
+   ```
+2. In Hostinger File Manager, copy `admin/config.example.php` to `admin/config.php` and replace `REPLACE_WITH_A_PASSWORD_HASH` with the generated hash.
+3. Keep `admin/config.php` private; it is excluded from Git. Use a unique, strong password.
+
+Pricing changes are stored on the server and appear for all website visitors. The existing `assets/js/jsc-config.js` remains the fallback for other settings such as contact details and offers.
 
 ### Updating WhatsApp or Contact Phone
 ```javascript
@@ -118,30 +110,18 @@ In `jsc-config.js`, modify the `offers` array. You can set `status: "ACTIVE"` or
 
 ---
 
-## 4. Replacing Temporary Visuals With Your Actual Photos & Videos
+## 4. Replacing Facility Visuals
 
-When you are ready to insert your original photos:
+For ongoing gallery photo and video updates, use the admin panel. Uploaded gallery media is stored in `assets/uploads/`; accepted formats and size limits are shown in the panel. Keep `admin/data/site-content.json` and `assets/uploads/` when deploying future site updates so saved content is not overwritten.
 
-1. **Facilities:**
-   - Replace or drop your turf photograph into `assets/images/facilities/floodlit-turf.jpg` (or `.png`).
-   - Replace covered nets into `assets/images/facilities/practice-nets.jpg`.
-   - Replace bowling machine into `assets/images/facilities/bowling-machine.jpg`.
-   *(In `index.html`, simply change the file extension from `.svg` to `.jpg`)*
-
-2. **Gallery Photos:**
-   - Drop your match and academy images into `assets/images/gallery/`.
-   - Update `src` attributes in the `<div class="gallery-masonry-grid">` section of `index.html`.
-
-3. **Videos:**
-   - If hosting an MP4, upload to `assets/videos/` and add a standard `<video controls poster="..."><source src="assets/videos/match.mp4" type="video/mp4"></video>` tag.
-   - For YouTube / Instagram embeds, paste the standard iframe code into the gallery or hero modal.
+The facility illustrations in `assets/images/facilities/` are separate from the admin-managed gallery. Replacing those visuals still requires updating the corresponding image references in `index.html`.
 
 ---
 
 ## 5. Testing Locally
 
-1. Open `index.html` directly in any modern browser (Chrome, Safari, Firefox, Edge).
-2. Alternatively, run a lightweight local static server:
+1. For a static preview, open `index.html` directly in a modern browser. The preview uses built-in defaults; PHP-backed admin content requires a PHP-enabled web server.
+2. To test the full site and admin locally, use a PHP-enabled web server and configure `admin/config.php` as above. The existing lightweight static server can still be used for layout-only checks:
    ```bash
    python3 -m http.server 8080
    ```

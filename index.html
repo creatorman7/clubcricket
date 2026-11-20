@@ -575,8 +575,8 @@
     <section class="section-padding" id="pricing" style="background: rgba(6, 27, 19, 0.4);">
       <div class="container">
         <div class="section-header text-center reveal-on-scroll">
-          <span class="section-label">Official Rates &amp; Packages</span>
-          <h2 class="section-title">TRANSPARENT WINTER PRICING</h2>
+          <span class="section-label" id="pricing-season-label">Official Rates &amp; Packages</span>
+          <h2 class="section-title">TRANSPARENT PRICING</h2>
           <p class="section-subtitle">
             Clear, honest pricing with zero hidden costs. Check weekday and weekend rates for our floodlit turf, covered nets, and bowling machine packages.
           </p>
@@ -586,7 +586,7 @@
         <div class="pricing-disclaimer-banner reveal-on-scroll">
           <svg class="disclaimer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           <div class="disclaimer-text">
-            <strong>Official Pricing Notice:</strong> Introductory launch offers have concluded. Please refer exclusively to the official winter rates displayed on this page. (Old promotional turf rates of ₹500/day and ₹700/night are no longer applicable).
+            <strong>Official Pricing Notice:</strong> Current rates are shown below. Weekend bookings include the configured surcharge.
           </div>
         </div>
 
@@ -598,7 +598,7 @@
               <input type="checkbox" id="pricing-day-type-toggle" aria-label="Toggle Weekend Pricing">
               <span class="switch-slider"></span>
             </label>
-            <span class="switch-label text-lime">Weekend (+20%)</span>
+            <span class="switch-label text-lime" id="pricing-weekend-label">Weekend (+20%)</span>
           </div>
 
           <div class="period-select-wrap">
@@ -642,7 +642,7 @@
               <label class="calc-label" for="calc-daytype">Day Of Week</label>
               <select class="calc-input" id="calc-daytype">
                 <option value="weekday">Weekday (Mon–Fri)</option>
-                <option value="weekend">Weekend (+20% Sat–Sun)</option>
+                <option value="weekend" id="calc-weekend-option">Weekend (+20% Sat–Sun)</option>
               </select>
             </div>
 
@@ -776,10 +776,11 @@
     </section>
 
     <!-- Lightbox Modal -->
-    <div class="lightbox-modal" id="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Image Lightbox">
+    <div class="lightbox-modal" id="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Gallery Lightbox">
       <button class="lightbox-close-btn" id="lightbox-close" aria-label="Close Lightbox">&times;</button>
       <div class="lightbox-image-wrap">
         <img src="" alt="" id="lightbox-img">
+        <video id="lightbox-video" controls playsinline hidden></video>
         <p class="lightbox-caption-text" id="lightbox-caption"></p>
       </div>
     </div>
@@ -1039,6 +1040,7 @@
 
   <!-- Scripts -->
   <script src="assets/js/jsc-config.js"></script>
+  <script src="assets/js/site-content.js"></script>
   <script src="assets/js/pricing.js"></script>
   <script src="assets/js/main.js"></script>
 </body>

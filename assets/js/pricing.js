@@ -7,7 +7,19 @@
  * =======================================================================
  */
 
-document.addEventListener("DOMContentLoaded", function () {
+function initializePricing() {
+  if (!window.JSC_CONFIG_READY) {
+    document.addEventListener("jsc-config-ready", initializePricing, { once: true });
+    return;
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runPricing, { once: true });
+  } else {
+    runPricing();
+  }
+}
+
+function runPricing() {
   const isWeekendToggle = document.getElementById("pricing-day-type-toggle");
   const timePeriodSelect = document.getElementById("pricing-time-period-select");
   const facilitiesContainer = document.getElementById("pricing-facilities-grid");
@@ -17,18 +29,26 @@ document.addEventListener("DOMContentLoaded", function () {
   const quickCalcHours = document.getElementById("calc-hours");
   const quickCalcOutput = document.getElementById("calc-total-display");
   const quickCalcWaBtn = document.getElementById("calc-whatsapp-btn");
+  const weekendLabel = document.getElementById("pricing-weekend-label");
+  const seasonLabel = document.getElementById("pricing-season-label");
+  const calculatorWeekendOption = document.getElementById("calc-weekend-option");
+  const contactFacility = document.getElementById("contact-facility");
 
   // State
   let isWeekend = false;
   let isNight = false;
+  const weekendChargePercent = Number(JSC_CONFIG.pricing.weekendChargePercent) || 0;
+
+  if (weekendLabel) weekendLabel.textContent = `Weekend (+${weekendChargePercent}%)`;
+  if (seasonLabel) seasonLabel.textContent = JSC_CONFIG.pricing.season;
+  if (calculatorWeekendOption) calculatorWeekendOption.textContent = `Weekend (+${weekendChargePercent}% Sat–Sun)`;
 
   /**
    * Calculate effective price applying weekend surcharge if active
    */
   function calculateRate(basePrice, applyWeekend) {
     if (!applyWeekend) return basePrice;
-    const surcharge = JSC_CONFIG.pricing.weekendChargePercent || 20;
-    return Math.round(basePrice * (1 + surcharge / 100));
+    return Math.round(basePrice * (1 + weekendChargePercent / 100));
   }
 
   /**
@@ -51,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const effectivePrice = calculateRate(basePrice, isWeekend);
 
       const periodLabel = isNight ? "Night Slot (5 PM+)" : "Day Slot (6 AM - 5 PM)";
-      const dayLabel = isWeekend ? "Weekend (+20%)" : "Weekday Regular";
+      const dayLabel = isWeekend ? `Weekend (+${weekendChargePercent}%)` : "Weekday Regular";
 
       const waMessage = `Hello Jimmy Sports Club, I would like to book a slot for ${facility.title} (${periodLabel}, ${dayLabel}). Calculated rate: ₹${effectivePrice}/hr. Please share available time slots.`;
 
@@ -110,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const basePrice = pkg.price;
       const effectivePrice = calculateRate(basePrice, isWeekend);
       const ballsApprox = pkg.overs * 6;
-      const dayLabel = isWeekend ? "Weekend (+20%)" : "Weekday Regular";
+      const dayLabel = isWeekend ? `Weekend (+${weekendChargePercent}%)` : "Weekday Regular";
 
       const waMsg = `Hello Jimmy Sports Club, I would like to book the Automated Bowling Machine package of ${pkg.overs} Overs (${ballsApprox} Balls) for ₹${effectivePrice} (${dayLabel}). Please let me know available slots.`;
 
@@ -145,18 +165,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const isWk = quickCalcDayType ? quickCalcDayType.value === "weekend" : false;
     const hours = parseInt(quickCalcHours ? quickCalcHours.value : "1", 10) || 1;
 
-    let baseHourly = 800; // default turf
-    if (facilityId === "nets") baseHourly = 200;
+    const facility = JSC_CONFIG.pricing.facilities.find((item) => item.id === facilityId);
+    const baseHourly = facility ? (isNight ? facility.nightRate : facility.dayRate) : 0;
 
     const hourly = calculateRate(baseHourly, isWk);
     const total = hourly * hours;
 
     quickCalcOutput.textContent = `₹${total}`;
+    if (facility) {
+      const option = Array.from(quickCalcFacility.options).find((item) => item.value === facilityId);
+      if (option) option.textContent = `${facility.title} (₹${baseHourly}/hr)`;
+      if (contactFacility) {
+        const contactOption = Array.from(contactFacility.options).find((item) => item.value === facilityId);
+        if (contactOption) contactOption.textContent = `${facility.title} (₹${facility.dayRate}/hr)`;
+      }
+    }
 
     if (quickCalcWaBtn) {
-      const facName = facilityId === "nets" ? "Covered Cricket Nets" : "Floodlit Cricket Turf";
+      const facName = facility ? facility.title : "Cricket Facility";
       const dayText = isWk ? "Weekend" : "Weekday";
-      const msg = `Hello Jimmy Sports Club, I would like to book ${facName} for ${hours} hour(s) on a ${dayText}. Estimated total: ₹${total}. Please share slot timings.`;
+      const periodText = isNight ? "night" : "day";
+      const msg = `Hello Jimmy Sports Club, I would like to book ${facName} for ${hours} hour(s) on a ${dayText} ${periodText} slot. Estimated total: ₹${total}. Please share slot timings.`;
       quickCalcWaBtn.href = buildWhatsAppUrl(msg);
     }
   }
@@ -174,6 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
     timePeriodSelect.addEventListener("change", function () {
       isNight = this.value === "night";
       renderFacilities();
+      updateQuickCalculator();
     });
   }
 
@@ -186,4 +216,6 @@ document.addEventListener("DOMContentLoaded", function () {
   renderFacilities();
   renderBowlingPackages();
   updateQuickCalculator();
-});
+}
+
+initializePricing();

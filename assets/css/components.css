@@ -1171,12 +1171,18 @@ input:checked + .switch-slider:before {
   position: relative;
 }
 
-.lightbox-image-wrap img {
+.lightbox-image-wrap img,
+.lightbox-image-wrap video {
   max-width: 100%;
   max-height: 75vh;
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
   border: 1px solid var(--color-subtle-lime-border);
+}
+
+#lightbox-img[hidden],
+#lightbox-video[hidden] {
+  display: none;
 }
 
 .lightbox-caption-text {

@@ -9,7 +9,7 @@ This guide walks you through deploying the Jimmy Sports Club website to your **H
 - **Hosting Plan:** Hostinger Business Web Hosting
 - **Target Domain:** `jimmysportsclub.com` (or current `jsconline.in`)
 - **Web Server:** LiteSpeed / Apache (Supported out-of-the-box)
-- **Architecture:** Zero-dependency static frontend (HTML5, Modern CSS3, Vanilla JS, SVG Vector Assets). No Node.js runtime or SQL database is required for core operation.
+- **Architecture:** Static HTML/CSS/JavaScript website with a small PHP 8.1+ admin API. No Node.js runtime or SQL database is required.
 
 ---
 
@@ -21,10 +21,11 @@ This guide walks you through deploying the Jimmy Sports Club website to your **H
 4. Click on **Go to files of [your domain]**.
 5. Double-click the **`public_html`** folder.
    > **Note:** If there is a default `default.php` or placeholder `index.html` from Hostinger, you can safely delete or back it up.
-6. Upload the files:
+6. Enable **Show hidden files** in File Manager and include the `.htaccess` files in the website folders. These protect private admin data and uploaded media.
+7. Upload the files:
    - You can either upload the files directly, OR
-   - Zip all files inside `JSC WEBPAGE CREATION/` (so that `index.html`, `404.html`, `robots.txt`, `.htaccess`, `sitemap.xml`, and the `assets/` folder are at the root of the zip), upload the zip file into `public_html`, right-click it, and select **Extract**.
-7. Ensure your file structure inside `public_html` looks like this:
+   - Zip all website files inside `JSC WEBPAGE CREATION/` (so that `index.html`, `404.html`, `robots.txt`, `.htaccess`, `sitemap.xml`, `admin/`, and `assets/` are at the root of the zip), upload the zip file into `public_html`, right-click it, and select **Extract**. Do not include a private `admin/config.php` in a shared archive.
+8. Ensure your file structure inside `public_html` looks like this:
    ```
    public_html/
    ├── index.html
@@ -33,18 +34,49 @@ This guide walks you through deploying the Jimmy Sports Club website to your **H
    ├── favicon.svg
    ├── robots.txt
    ├── sitemap.xml
+   ├── admin/
+   │   ├── .htaccess
+   │   ├── index.php
+   │   ├── admin.css
+   │   ├── admin.js
+   │   ├── api.php
+   │   ├── config.example.php
+   │   ├── lib.php
+   │   ├── public-content.php
+   │   └── data/
+   │       ├── .htaccess
+   │       └── site-content.json
    └── assets/
        ├── css/
        │   ├── style.css
        │   └── components.css
        ├── js/
        │   ├── jsc-config.js
+       │   ├── site-content.js
        │   ├── main.js
        │   └── pricing.js
        ├── images/
+       ├── uploads/
+       │   └── .htaccess
        ├── logo/
        └── icons/
    ```
+9. Complete the [admin panel setup](#admin-panel-setup) below before using the panel.
+
+## Admin Panel Setup
+
+1. In Hostinger hPanel, select PHP **8.1 or later** for the domain.
+2. Generate a password hash on a computer with PHP CLI. This prompts without echoing the password:
+   ```sh
+   read -s ADMIN_PASSWORD
+   printf '\n'
+   printf '%s' "$ADMIN_PASSWORD" | php -r 'echo password_hash(stream_get_contents(STDIN), PASSWORD_DEFAULT), PHP_EOL;'
+   unset ADMIN_PASSWORD
+   ```
+3. In File Manager, copy `public_html/admin/config.example.php` to `public_html/admin/config.php`. Replace `REPLACE_WITH_A_PASSWORD_HASH` with the generated hash. Do not commit or share `config.php`.
+4. Ensure PHP can write to `public_html/admin/data/` and `public_html/assets/uploads/`. The directory `.htaccess` rules block direct access to private content and prevent uploaded scripts from running.
+5. To support videos up to 100 MB, set PHP `upload_max_filesize` to at least `100M` and `post_max_size` to at least `110M` in hPanel’s PHP configuration. The hosting plan’s limits may be lower.
+6. Visit `https://your-domain.com/admin/`, sign in, and test a small photo upload and a rate change. The website reads saved content from `admin/public-content.php`.
 
 ---
 
@@ -54,7 +86,7 @@ This guide walks you through deploying the Jimmy Sports Club website to your **H
 2. Note your **FTP Hostname**, **FTP Username**, and **Port (usually 21)**.
 3. Open your FTP client (e.g. FileZilla), enter your credentials, and click **Quickconnect**.
 4. In the remote directory window, open **`public_html`**.
-5. Select all files and folders in your local project directory and drag them into `public_html`.
+5. Upload the project files and folders into `public_html`, including hidden `.htaccess` files. On later deployments, do not overwrite `admin/data/site-content.json` or `assets/uploads/`; those contain the rates and gallery media managed in the admin panel.
 
 ---
 
@@ -78,3 +110,4 @@ Visit `https://jimmysportsclub.com/` (or your domain) and test:
 - [ ] Test the quick slot calculator.
 - [ ] Test on a mobile phone to check responsive navigation drawer and floating WhatsApp/Call buttons.
 - [ ] Test a nonexistent URL (e.g. `yourdomain.com/test-404`) to verify the custom 404 page.
+- [ ] Visit `/admin/`, sign in, and confirm a saved rate or uploaded gallery item appears on the public site.

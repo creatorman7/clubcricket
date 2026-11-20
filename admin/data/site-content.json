@@ -1,0 +1,45 @@
+{
+  "pricing": {
+    "season": "Winter 2026 Official Rates",
+    "weekendChargePercent": 20,
+    "facilities": [
+      {
+        "id": "turf",
+        "dayRate": 800,
+        "nightRate": 800
+      },
+      {
+        "id": "nets",
+        "dayRate": 200,
+        "nightRate": 200
+      }
+    ],
+    "bowlingMachinePackages": [
+      {
+        "overs": 10,
+        "price": 100
+      },
+      {
+        "overs": 20,
+        "price": 200
+      },
+      {
+        "overs": 30,
+        "price": 300
+      },
+      {
+        "overs": 40,
+        "price": 400
+      },
+      {
+        "overs": 50,
+        "price": 500
+      },
+      {
+        "overs": 70,
+        "price": 600
+      }
+    ]
+  },
+  "media": []
+}

@@ -7,7 +7,19 @@
  * =======================================================================
  */
 
-document.addEventListener("DOMContentLoaded", function () {
+function initializeMain() {
+  if (!window.JSC_CONFIG_READY) {
+    document.addEventListener("jsc-config-ready", initializeMain, { once: true });
+    return;
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runMain, { once: true });
+  } else {
+    runMain();
+  }
+}
+
+function runMain() {
   // 1. DOM Elements
   const navbar = document.getElementById("jsc-navbar");
   const navToggle = document.getElementById("nav-toggle");
@@ -16,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const contactForm = document.getElementById("jsc-contact-form");
   const lightboxModal = document.getElementById("gallery-lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
+  const lightboxVideo = document.getElementById("lightbox-video");
   const lightboxCaption = document.getElementById("lightbox-caption");
   const lightboxClose = document.getElementById("lightbox-close");
   const galleryGrid = document.getElementById("gallery-masonry-grid");
@@ -49,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // 5. Gallery Filtering & Lightbox
+  renderManagedGallery();
   initGallery();
 
   // 6. Interactive Contact / WhatsApp Quick Form
@@ -256,14 +270,31 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
         const galleryItem = this.closest(".gallery-item");
         const img = galleryItem.querySelector("img");
+        const video = galleryItem.querySelector("video");
         const title = galleryItem.querySelector(".gallery-overlay-title")?.textContent || "";
         const desc = galleryItem.querySelector(".gallery-overlay-desc")?.textContent || "";
 
-        if (lightboxModal && lightboxImg && img) {
-          lightboxImg.src = img.src;
-          lightboxImg.alt = img.alt || "Jimmy Sports Club";
+        if (lightboxModal && (img || video)) {
+          if (video && lightboxVideo) {
+            if (lightboxImg) lightboxImg.hidden = true;
+            lightboxVideo.hidden = false;
+            lightboxVideo.src = video.currentSrc || video.src;
+            lightboxVideo.setAttribute("aria-label", title || "Jimmy Sports Club video");
+          } else if (img && lightboxImg) {
+            if (lightboxVideo) {
+              lightboxVideo.pause();
+              lightboxVideo.removeAttribute("src");
+              lightboxVideo.load();
+              lightboxVideo.hidden = true;
+            }
+            lightboxImg.hidden = false;
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt || "Jimmy Sports Club";
+          }
           if (lightboxCaption) {
-            lightboxCaption.innerHTML = `<strong>${title}</strong> — ${desc}`;
+            const titleElement = document.createElement("strong");
+            titleElement.textContent = title;
+            lightboxCaption.replaceChildren(titleElement, document.createTextNode(` — ${desc}`));
           }
           lightboxModal.classList.add("is-visible");
           document.body.style.overflow = "hidden";
@@ -286,8 +317,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function closeLightbox() {
       lightboxModal.classList.remove("is-visible");
+      if (lightboxVideo) {
+        lightboxVideo.pause();
+        lightboxVideo.removeAttribute("src");
+        lightboxVideo.load();
+        lightboxVideo.hidden = true;
+      }
+      if (lightboxImg) lightboxImg.hidden = false;
       document.body.style.overflow = "";
     }
+  }
+
+  function renderManagedGallery() {
+    if (!galleryGrid || !Array.isArray(window.JSC_MEDIA)) return;
+
+    window.JSC_MEDIA.forEach((media) => {
+      const item = document.createElement("div");
+      item.className = "gallery-item";
+      item.dataset.category = media.category;
+
+      let preview;
+      if (media.type === "video") {
+        preview = document.createElement("video");
+        preview.muted = true;
+        preview.playsInline = true;
+        preview.preload = "metadata";
+        preview.setAttribute("aria-label", media.title);
+      } else {
+        preview = document.createElement("img");
+        preview.alt = media.title;
+        preview.loading = "lazy";
+      }
+      preview.src = media.url;
+      preview.classList.add("gallery-thumb");
+
+      const overlay = document.createElement("div");
+      overlay.className = "gallery-item-overlay";
+      const title = document.createElement("h4");
+      title.className = "gallery-overlay-title";
+      title.textContent = media.title;
+      const description = document.createElement("p");
+      description.className = "gallery-overlay-desc";
+      description.textContent = media.type === "video" ? "Video • Jimmy Sports Club" : "Jimmy Sports Club Gallery";
+      const trigger = document.createElement("a");
+      trigger.href = "#";
+      trigger.className = "gallery-zoom-trigger";
+      trigger.setAttribute("aria-label", `View ${media.type}: ${media.title}`);
+      trigger.textContent = media.type === "video" ? "▶" : "↗";
+      overlay.append(title, description, trigger);
+      item.append(preview, overlay);
+      galleryGrid.append(item);
+    });
   }
 
   /**
@@ -337,4 +417,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     revealElements.forEach((el) => observer.observe(el));
   }
-});
+}
+
+initializeMain();

@@ -1,0 +1,462 @@
+.admin-body {
+  min-height: 100vh;
+  padding-bottom: 64px;
+}
+
+.admin-topbar {
+  min-height: 76px;
+  padding: 12px clamp(20px, 5vw, 72px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-subtle-border);
+  background: rgba(5, 8, 7, 0.72);
+  position: relative;
+  z-index: 2;
+}
+
+.admin-brand,
+.admin-view-site {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 700;
+}
+
+.admin-brand img {
+  width: 148px;
+}
+
+.admin-brand span,
+.admin-kicker {
+  color: var(--color-electric-lime);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.admin-view-site {
+  color: var(--color-muted-text);
+  font-size: 0.9rem;
+}
+
+.admin-view-site:hover {
+  color: var(--color-electric-lime);
+}
+
+.admin-shell {
+  width: min(1120px, calc(100% - 40px));
+  margin: 56px auto 0;
+}
+
+.admin-login-card,
+.admin-panel,
+.admin-summary-card {
+  border: 1px solid var(--color-subtle-border);
+  border-radius: 20px;
+  background: rgba(6, 40, 29, 0.68);
+  box-shadow: var(--shadow-subtle);
+}
+
+.admin-login-card {
+  width: min(100%, 460px);
+  margin: 7vh auto 0;
+  padding: clamp(26px, 5vw, 42px);
+}
+
+.admin-login-card h1,
+.admin-heading-row h1 {
+  margin: 9px 0;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+}
+
+.admin-muted {
+  color: var(--color-muted-text);
+  font-size: 0.93rem;
+}
+
+.admin-login-card form {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.admin-login-card label,
+.admin-field label,
+.admin-rate-card label,
+.admin-package-grid label,
+.admin-file-label {
+  color: var(--color-hot-white);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.admin-login-card input,
+.admin-field input,
+.admin-field select,
+.admin-rate-card input,
+.admin-package-grid input {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid rgba(247, 249, 245, 0.16);
+  border-radius: 9px;
+  background: rgba(5, 8, 7, 0.55);
+  color: var(--color-hot-white);
+}
+
+.admin-field select option {
+  background: #061b13;
+}
+
+.admin-button {
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 800;
+  transition: var(--transition-fast);
+}
+
+.admin-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.admin-button-primary {
+  background: var(--color-electric-lime);
+  color: var(--color-near-black);
+}
+
+.admin-button-primary:hover:not(:disabled) {
+  box-shadow: var(--shadow-lime-glow);
+  transform: translateY(-1px);
+}
+
+.admin-button-quiet {
+  border-color: var(--color-subtle-lime-border);
+  background: transparent;
+  color: var(--color-hot-white);
+}
+
+.admin-notice {
+  margin-top: 20px;
+  padding: 12px 14px;
+  border-radius: 9px;
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+
+.admin-notice-error {
+  border: 1px solid rgba(255, 113, 113, 0.4);
+  background: rgba(120, 25, 25, 0.2);
+  color: #ffd1d1;
+}
+
+.admin-footnote {
+  margin-top: 16px;
+  color: var(--color-muted-text);
+  font-size: 0.78rem;
+}
+
+.admin-status {
+  min-height: 1.4em;
+  color: var(--color-muted-text);
+  font-size: 0.86rem;
+}
+
+.admin-status.is-error {
+  color: #ffb6b6;
+}
+
+.admin-status.is-success {
+  color: var(--color-electric-lime);
+}
+
+.admin-dashboard[hidden],
+.admin-login-card[hidden] {
+  display: none;
+}
+
+.admin-heading-row,
+.admin-panel-heading,
+.admin-form-actions,
+.admin-media-list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.admin-heading-row {
+  margin-bottom: 28px;
+}
+
+.admin-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.admin-summary-card {
+  padding: 20px;
+}
+
+.admin-summary-card span {
+  display: block;
+  color: var(--color-muted-text);
+  font-size: 0.82rem;
+}
+
+.admin-summary-card strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--color-electric-lime);
+  font-size: 1.35rem;
+  overflow-wrap: anywhere;
+}
+
+.admin-panel {
+  margin-top: 22px;
+  padding: clamp(20px, 4vw, 34px);
+}
+
+.admin-panel-heading {
+  align-items: flex-start;
+  margin-bottom: 26px;
+}
+
+.admin-panel h2 {
+  margin: 5px 0 7px;
+  font-size: 1.65rem;
+}
+
+.admin-form-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.admin-form-grid-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.admin-field {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-field-wide {
+  grid-column: span 2;
+}
+
+.admin-subheading {
+  margin: 28px 0 14px;
+  font-size: 1.05rem;
+}
+
+.admin-rate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.admin-rate-card {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--color-subtle-border);
+  border-radius: 12px;
+}
+
+.admin-rate-card legend {
+  padding: 0 7px;
+  color: var(--color-electric-lime);
+  font-weight: 800;
+}
+
+.admin-package-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.admin-package-grid label {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-form-actions {
+  margin-top: 22px;
+}
+
+.admin-form-actions .admin-status:empty {
+  display: none;
+}
+
+.admin-upload-form {
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--color-subtle-border);
+}
+
+.admin-upload-row {
+  display: grid;
+  justify-items: start;
+  gap: 9px;
+  margin-top: 18px;
+}
+
+.admin-upload-row input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px dashed rgba(182, 255, 54, 0.32);
+  border-radius: 10px;
+  background: rgba(5, 8, 7, 0.3);
+}
+
+.admin-media-list-heading {
+  align-items: flex-end;
+  margin: 4px 0 16px;
+}
+
+.admin-media-list-heading .admin-subheading {
+  margin-bottom: 0;
+}
+
+.admin-media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.admin-media-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-subtle-border);
+  border-radius: 12px;
+  background: rgba(5, 8, 7, 0.42);
+}
+
+.admin-media-preview {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: #050807;
+}
+
+.admin-media-details {
+  padding: 12px;
+}
+
+.admin-media-details strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-media-details span {
+  display: block;
+  margin: 4px 0 12px;
+  color: var(--color-muted-text);
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+.admin-media-details button {
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 113, 113, 0.42);
+  border-radius: 7px;
+  background: transparent;
+  color: #ffb6b6;
+  cursor: pointer;
+}
+
+.admin-empty-state {
+  grid-column: 1 / -1;
+  padding: 24px;
+  border: 1px dashed var(--color-subtle-border);
+  border-radius: 12px;
+  color: var(--color-muted-text);
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .admin-shell {
+    margin-top: 32px;
+  }
+
+  .admin-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-summary-card {
+    padding: 14px 18px;
+  }
+
+  .admin-summary-card strong {
+    font-size: 1.1rem;
+  }
+
+  .admin-rate-grid,
+  .admin-form-grid-two,
+  .admin-media-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-field-wide {
+    grid-column: auto;
+  }
+
+  .admin-package-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-media-list-heading,
+  .admin-heading-row {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-topbar {
+    min-height: 66px;
+    padding-inline: 16px;
+  }
+
+  .admin-brand {
+    gap: 8px;
+  }
+
+  .admin-brand img {
+    width: 116px;
+  }
+
+  .admin-brand span {
+    font-size: 0.62rem;
+  }
+
+  .admin-shell {
+    width: calc(100% - 28px);
+  }
+
+  .admin-heading-row,
+  .admin-form-actions,
+  .admin-media-list-heading {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-package-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-rate-card {
+    grid-template-columns: 1fr;
+  }
+}
