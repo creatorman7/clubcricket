@@ -1,0 +1,8 @@
+<!-- Trophy Icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#B6FF36" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2" />
+  <path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2" />
+  <path d="M4 4h16v6a7 7 0 0 1-14 0V4z" />
+  <path d="M12 15v4" />
+  <path d="M8 21h8" />
+</svg>

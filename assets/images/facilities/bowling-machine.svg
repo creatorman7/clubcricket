@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="100%" height="100%">
+  <defs>
+    <radialGradient id="machBg" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#0E4532" />
+      <stop offset="60%" stop-color="#062217" />
+      <stop offset="100%" stop-color="#050807" />
+    </radialGradient>
+    <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A4A38" />
+      <stop offset="50%" stop-color="#0F3324" />
+      <stop offset="100%" stop-color="#061B13" />
+    </linearGradient>
+    <filter id="laserGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="520" fill="url(#machBg)" />
+
+  <!-- Practice Net Cage Perimeter -->
+  <g opacity="0.2">
+    <rect x="40" y="40" width="720" height="440" fill="none" stroke="#B6FF36" stroke-width="1.5" />
+    <line x1="40" y1="120" x2="760" y2="120" stroke="#F7F9F5" stroke-dasharray="3 3" />
+    <line x1="40" y1="200" x2="760" y2="200" stroke="#F7F9F5" stroke-dasharray="3 3" />
+    <line x1="40" y1="280" x2="760" y2="280" stroke="#F7F9F5" stroke-dasharray="3 3" />
+    <line x1="40" y1="360" x2="760" y2="360" stroke="#F7F9F5" stroke-dasharray="3 3" />
+    <line x1="200" y1="40" x2="200" y2="480" stroke="#B6FF36" />
+    <line x1="400" y1="40" x2="400" y2="480" stroke="#B6FF36" />
+    <line x1="600" y1="40" x2="600" y2="480" stroke="#B6FF36" />
+  </g>
+
+  <!-- Turf Lane in perspective -->
+  <polygon points="120,440 680,440 780,520 20,520" fill="#0A2D20" stroke="#123D2B" stroke-width="2" />
+  <polygon points="220,440 580,440 640,520 160,520" fill="#185E3E" />
+
+  <!-- Trajectory Laser Line / Ball Delivery Vector -->
+  <line x1="260" y1="180" x2="620" y2="380" stroke="#B6FF36" stroke-width="2.5" stroke-dasharray="8 6" filter="url(#laserGlow)" />
+  <circle cx="620" cy="380" r="14" fill="#B6FF36" opacity="0.2" />
+
+  <!-- Animated Speeding Cricket Balls along trajectory -->
+  <circle cx="380" cy="245" r="9" fill="#E63946" stroke="#B6FF36" stroke-width="1.5" opacity="0.7" />
+  <circle cx="490" cy="310" r="12" fill="#E63946" stroke="#B6FF36" stroke-width="2" />
+  <!-- Ball seam on main ball -->
+  <path d="M485 302 Q 492 310 485 318" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="1 1" fill="none" />
+
+  <!-- Automated Cricket Bowling Machine Setup -->
+  <g transform="translate(140, 110)">
+    <!-- Tripod Legs (Industrial Steel Stand) -->
+    <line x1="120" y1="140" x2="40" y2="360" stroke="#123D2B" stroke-width="8" stroke-linecap="round" />
+    <line x1="120" y1="140" x2="190" y2="360" stroke="#123D2B" stroke-width="8" stroke-linecap="round" />
+    <line x1="120" y1="140" x2="120" y2="370" stroke="#061B13" stroke-width="9" stroke-linecap="round" />
+    <line x1="70" y1="280" x2="165" y2="280" stroke="#B6FF36" stroke-width="3" />
+
+    <!-- Machine Mounting Head with Angle Pivot -->
+    <rect x="95" y="115" width="50" height="30" rx="5" fill="#0A281B" stroke="#B6FF36" stroke-width="2" />
+
+    <!-- Twin Bowling Wheel Housing -->
+    <rect x="70" y="45" width="100" height="75" rx="10" fill="url(#metalGrad)" stroke="#B6FF36" stroke-width="2.5" />
+    <!-- Wheel 1 (Top / Swing control) -->
+    <circle cx="100" cy="75" r="22" fill="#061B13" stroke="#B6FF36" stroke-width="2" />
+    <circle cx="100" cy="75" r="8" fill="#123D2B" />
+    <!-- Wheel 2 (Bottom / Speed drive) -->
+    <circle cx="140" cy="75" r="22" fill="#061B13" stroke="#B6FF36" stroke-width="2" />
+    <circle cx="140" cy="75" r="8" fill="#123D2B" />
+
+    <!-- Ball Ejection Chute / Nozzle -->
+    <polygon points="155,65 185,72 185,82 155,85" fill="#061B13" stroke="#B6FF36" stroke-width="1.5" />
+
+    <!-- Ball Feeder Tube / Spiral Carousel Chute -->
+    <path d="M75 55 C 45 40, 20 70, 45 100 C 60 120, 85 95, 75 75" fill="none" stroke="#F7F9F5" stroke-width="4" stroke-linecap="round" />
+    <!-- Loaded Balls in Feeder -->
+    <circle cx="48" cy="50" r="7" fill="#E63946" stroke="#FFFFFF" stroke-width="1" />
+    <circle cx="35" cy="75" r="7" fill="#E63946" stroke="#FFFFFF" stroke-width="1" />
+    <circle cx="50" cy="98" r="7" fill="#E63946" stroke="#FFFFFF" stroke-width="1" />
+
+    <!-- Digital Speed & Spin Controller Display -->
+    <rect x="25" y="150" width="70" height="45" rx="5" fill="#061B13" stroke="#B6FF36" stroke-width="1.5" />
+    <text x="32" y="165" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="8" fill="#B6FF36">SPEED DIAL</text>
+    <text x="32" y="182" font-family="'Syne', monospace" font-weight="900" font-size="14" fill="#F7F9F5">135 <tspan font-size="8" fill="#B6FF36">KM/H</tspan></text>
+    <circle cx="82" cy="162" r="3" fill="#B6FF36" filter="url(#laserGlow)" />
+  </g>
+
+  <!-- Batsman Stance Silhouetted in Distance -->
+  <g transform="translate(620, 290)">
+    <!-- Ready Batting Stance -->
+    <!-- Pad & Legs -->
+    <path d="M30 90 L25 150 L35 150 L40 100 Z" fill="#F7F9F5" stroke="#061B13" stroke-width="1.5" />
+    <path d="M50 85 L60 150 L72 150 L60 95 Z" fill="#F7F9F5" stroke="#061B13" stroke-width="1.5" />
+    <!-- Torso -->
+    <path d="M25 45 L55 45 L50 95 L25 90 Z" fill="#063D2E" stroke="#123D2B" stroke-width="1" />
+    <!-- Helmet -->
+    <circle cx="40" cy="30" r="14" fill="#063D2E" stroke="#B6FF36" stroke-width="1" />
+    <!-- Bat tapped on ground -->
+    <line x1="38" y1="55" x2="22" y2="150" stroke="#EAD7B2" stroke-width="4.5" stroke-linecap="round" />
+  </g>
+
+  <!-- Floating Glass Telemetry Card Overlay inside graphic -->
+  <g transform="translate(40, 400)">
+    <rect width="230" height="85" rx="10" fill="#061B13" fill-opacity="0.85" stroke="#B6FF36" stroke-width="1.2" />
+    <text x="16" y="26" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="12" fill="#B6FF36" letter-spacing="1.5">BOWLING MACHINE</text>
+    <text x="16" y="46" font-family="'Plus Jakarta Sans', sans-serif" font-weight="500" font-size="11" fill="#F7F9F5">Programmable Speed &amp; Swing</text>
+    <text x="16" y="66" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="10" fill="#A5C4B4">10 to 70 Overs Batting Practice</text>
+    <circle cx="205" cy="24" r="5" fill="#B6FF36" />
+  </g>
+</svg>

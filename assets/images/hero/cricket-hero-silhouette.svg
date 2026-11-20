@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="stadiumGlow" cx="65%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#0A3D2A" stop-opacity="0.9" />
+      <stop offset="45%" stop-color="#062217" stop-opacity="0.85" />
+      <stop offset="85%" stop-color="#061B13" stop-opacity="0.98" />
+      <stop offset="100%" stop-color="#050807" stop-opacity="1" />
+    </radialGradient>
+
+    <!-- Floodlight Beam Gradients -->
+    <linearGradient id="lightBeam1" x1="0%" y1="0%" x2="70%" y2="100%">
+      <stop offset="0%" stop-color="#B6FF36" stop-opacity="0.4" />
+      <stop offset="30%" stop-color="#7ECC10" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#061B13" stop-opacity="0" />
+    </linearGradient>
+
+    <linearGradient id="lightBeam2" x1="100%" y1="0%" x2="40%" y2="100%">
+      <stop offset="0%" stop-color="#F7F9F5" stop-opacity="0.35" />
+      <stop offset="40%" stop-color="#B6FF36" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#061B13" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Lime Aura / Glow Filter -->
+    <filter id="neonLime" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur1" />
+      <feGaussianBlur stdDeviation="24" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="glowBall" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Deep Atmospheric Background -->
+  <rect width="1200" height="800" fill="url(#stadiumGlow)" />
+
+  <!-- Stadium Grid / Arena Turf Lines in Perspective -->
+  <g opacity="0.18">
+    <line x1="0" y1="650" x2="1200" y2="650" stroke="#B6FF36" stroke-width="1.5" />
+    <line x1="0" y1="720" x2="1200" y2="720" stroke="#B6FF36" stroke-width="2" />
+    <line x1="0" y1="790" x2="1200" y2="790" stroke="#B6FF36" stroke-width="2.5" />
+    <line x1="200" y1="800" x2="520" y2="600" stroke="#F7F9F5" stroke-width="1" />
+    <line x1="450" y1="800" x2="600" y2="600" stroke="#F7F9F5" stroke-width="1" />
+    <line x1="750" y1="800" x2="680" y2="600" stroke="#F7F9F5" stroke-width="1" />
+    <line x1="1000" y1="800" x2="760" y2="600" stroke="#F7F9F5" stroke-width="1" />
+  </g>
+
+  <!-- Floodlight Towers & Beams -->
+  <!-- Left Floodlight Tower (distant) -->
+  <g transform="translate(140, 60)">
+    <polygon points="0,0 280,680 -80,680" fill="url(#lightBeam1)" />
+    <!-- Tower lattice -->
+    <rect x="-8" y="-4" width="16" height="8" rx="2" fill="#B6FF36" opacity="0.9" filter="url(#neonLime)" />
+    <circle cx="-6" cy="0" r="3" fill="#FFFFFF" />
+    <circle cx="0" cy="0" r="3" fill="#FFFFFF" />
+    <circle cx="6" cy="0" r="3" fill="#FFFFFF" />
+    <line x1="0" y1="4" x2="0" y2="90" stroke="#123D2B" stroke-width="3" />
+  </g>
+
+  <!-- Right Floodlight Tower (overhead focus) -->
+  <g transform="translate(1020, 40)">
+    <polygon points="0,0 -420,740 60,740" fill="url(#lightBeam2)" />
+    <!-- Tower lamp array -->
+    <rect x="-14" y="-5" width="28" height="10" rx="2" fill="#FFFFFF" filter="url(#neonLime)" />
+    <circle cx="-10" cy="0" r="3.5" fill="#B6FF36" />
+    <circle cx="-3" cy="0" r="3.5" fill="#B6FF36" />
+    <circle cx="4" cy="0" r="3.5" fill="#B6FF36" />
+    <circle cx="11" cy="0" r="3.5" fill="#B6FF36" />
+    <line x1="0" y1="5" x2="0" y2="120" stroke="#123D2B" stroke-width="3.5" />
+  </g>
+
+  <!-- Dynamic Athletic Motion Particles / Sparkles -->
+  <g opacity="0.6">
+    <circle cx="580" cy="340" r="2" fill="#B6FF36" />
+    <circle cx="620" cy="280" r="2.5" fill="#B6FF36" />
+    <circle cx="710" cy="220" r="3" fill="#FFFFFF" />
+    <circle cx="780" cy="180" r="2" fill="#B6FF36" />
+    <circle cx="850" cy="140" r="3.5" fill="#B6FF36" />
+    <circle cx="920" cy="110" r="2" fill="#FFFFFF" />
+    <!-- Motion streak arc -->
+    <path d="M510 440 C 620 280, 750 180, 960 120" stroke="#B6FF36" stroke-width="3" stroke-linecap="round" stroke-dasharray="12 18" opacity="0.75" filter="url(#neonLime)" />
+  </g>
+
+  <!-- Cricket Red Ball Flying with Seam and Glow -->
+  <g transform="translate(970, 115)">
+    <circle cx="0" cy="0" r="18" fill="#E63946" stroke="#B6FF36" stroke-width="2" filter="url(#glowBall)" />
+    <!-- White curved seam -->
+    <path d="M-9 -14 C -2 -4, -2 4, -9 14" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="2 2" fill="none" />
+    <path d="M9 -14 C 2 -4, 2 4, 9 14" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="2 2" fill="none" />
+    <!-- Ball speed trail -->
+    <path d="M-18 0 L-60 -10" stroke="#B6FF36" stroke-width="2" opacity="0.6" />
+    <path d="M-16 10 L-50 16" stroke="#B6FF36" stroke-width="1.5" opacity="0.5" />
+  </g>
+
+  <!-- Stylized Batsman Figure (Power Drive / Follow-Through Silhouette) -->
+  <g transform="translate(360, 220)">
+    <!-- Back leg planted -->
+    <path d="M160 380 L185 450 L195 490 L230 495 L225 480 L195 440 L180 370 Z" fill="#0A281B" stroke="#063D2E" stroke-width="2" />
+    <!-- Front Leg with cricket pad / guard -->
+    <path d="M210 360 L280 430 L310 490 L345 490 L315 450 L275 410 L230 350 Z" fill="#F7F9F5" opacity="0.95" />
+    <!-- Cricket pad straps & ridges -->
+    <line x1="285" y1="440" x2="265" y2="425" stroke="#061B13" stroke-width="3" />
+    <line x1="300" y1="465" x2="280" y2="450" stroke="#061B13" stroke-width="3" />
+    <line x1="312" y1="485" x2="295" y2="470" stroke="#061B13" stroke-width="3" />
+    <path d="M270 410 L305 485" stroke="#B6FF36" stroke-width="2.5" />
+
+    <!-- Torso / Jersey (Athletic Stance, Twisted in Stroke) -->
+    <path d="M190 240 L260 250 L240 370 L170 350 Z" fill="#063D2E" stroke="#123D2B" stroke-width="2" />
+    <!-- Lime side panel on JSC Jersey -->
+    <path d="M245 250 L260 250 L240 370 L228 370 Z" fill="#B6FF36" />
+    <!-- JSC Logo Monogram on chest -->
+    <rect x="205" y="270" width="22" height="14" rx="2" fill="#061B13" stroke="#B6FF36" stroke-width="1" />
+    <text x="208" y="280" font-family="'Outfit', sans-serif" font-weight="900" font-size="8" fill="#B6FF36">JSC</text>
+
+    <!-- Head & Helmet with Grille -->
+    <circle cx="230" cy="190" r="26" fill="#063D2E" stroke="#0A281B" stroke-width="2" />
+    <!-- Helmet peak -->
+    <path d="M240 185 L275 195 L260 205 Z" fill="#0A281B" />
+    <!-- Steel face grille -->
+    <path d="M242 195 L268 200 L265 218 L240 215 Z" fill="none" stroke="#F7F9F5" stroke-width="2" />
+    <line x1="242" y1="205" x2="266" y2="207" stroke="#F7F9F5" stroke-width="1.5" />
+    <line x1="254" y1="197" x2="252" y2="216" stroke="#F7F9F5" stroke-width="1.5" />
+
+    <!-- Arms & Gloves in High Follow-Through -->
+    <!-- Left Arm -->
+    <path d="M200 250 L245 190 L285 160 L275 150 L230 180 L185 240 Z" fill="#063D2E" />
+    <!-- Right Leading Arm -->
+    <path d="M250 255 L290 200 L325 155 L315 145 L275 190 L240 250 Z" fill="#063D2E" />
+    <!-- Batting Gloves with white/lime padding -->
+    <ellipse cx="285" cy="150" rx="14" ry="10" fill="#F7F9F5" stroke="#B6FF36" stroke-width="2" />
+    <ellipse cx="320" cy="150" rx="14" ry="10" fill="#F7F9F5" stroke="#B6FF36" stroke-width="2" />
+
+    <!-- Cricket Bat (English Willow in Dynamic Upward Extension) -->
+    <!-- Rubber handle grip -->
+    <path d="M320 150 L360 115" stroke="#B6FF36" stroke-width="8" stroke-linecap="round" />
+    <!-- Bat Shoulder & Blade -->
+    <path d="M355 120 L480 25 L505 45 L380 140 Z" fill="#EAD7B2" stroke="#8A6738" stroke-width="2" />
+    <!-- Bat Colored Back Sticker (JSC Emerald & Lime Brand) -->
+    <path d="M370 110 L460 38 L475 52 L385 124 Z" fill="#063D2E" />
+    <path d="M385 98 L445 48 L455 58 L395 108 Z" fill="#B6FF36" />
+    <text x="400" y="85" transform="rotate(-36 400 85)" font-family="'Outfit', sans-serif" font-weight="900" font-size="12" fill="#061B13" letter-spacing="1">JSC PRO</text>
+  </g>
+
+  <!-- Foreground Turf Blade Accents & Gradient Vignette -->
+  <rect y="680" width="1200" height="120" fill="url(#stadiumGlow)" opacity="0.8" />
+  <line x1="0" y1="798" x2="1200" y2="798" stroke="#B6FF36" stroke-width="3" opacity="0.6" />
+</svg>

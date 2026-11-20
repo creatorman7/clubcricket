@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 76" fill="none">
+  <defs>
+    <linearGradient id="logoLime" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B6FF36" />
+      <stop offset="100%" stop-color="#7ECC10" />
+    </linearGradient>
+  </defs>
+
+  <!-- Left Emblem Icon -->
+  <g transform="translate(4, 2) scale(0.72)">
+    <!-- Hexagonal Shield Outer -->
+    <polygon points="50,4 92,25 92,75 50,96 8,75 8,25" fill="#061B13" stroke="#B6FF36" stroke-width="3" stroke-linejoin="round" />
+    <polygon points="50,11 85,29 85,71 50,89 15,71 15,29" fill="#0A281B" stroke="#063D2E" stroke-width="1.5" />
+    
+    <!-- Stumps -->
+    <rect x="43" y="27" width="2.5" height="26" fill="#123D2B" />
+    <rect x="48.7" y="25" width="2.5" height="28" fill="#B6FF36" />
+    <rect x="54.5" y="27" width="2.5" height="26" fill="#123D2B" />
+    <rect x="41" y="24" width="18" height="2" fill="#B6FF36" />
+    
+    <!-- JSC Monogram -->
+    <path d="M30 46 L43 46 L36 68 C34 72 26 72 23 68" stroke="#F7F9F5" stroke-width="4.5" stroke-linecap="round" fill="none" />
+    <path d="M59 48 C55 45 46 47 46 53 C46 60 56 60 56 67 C56 73 47 75 42 71" stroke="#B6FF36" stroke-width="4.5" stroke-linecap="round" fill="none" />
+    <path d="M78 50 C74 46 66 46 63 50 C58 56 58 64 63 70 C67 74 76 74 80 68" stroke="#F7F9F5" stroke-width="4.5" stroke-linecap="round" fill="none" />
+    
+    <!-- Cricket Ball -->
+    <circle cx="76" cy="30" r="7.5" fill="#E63946" stroke="#B6FF36" stroke-width="1.2" />
+  </g>
+
+  <!-- Typography -->
+  <g transform="translate(86, 0)">
+    <!-- Main JSC Brand Heading -->
+    <text x="0" y="32" font-family="'Syne', 'Outfit', 'Montserrat', sans-serif" font-weight="900" font-size="24" letter-spacing="1.5" fill="#F7F9F5">JIMMY <tspan fill="#B6FF36">SPORTS CLUB</tspan></text>
+    
+    <!-- Subtitle / Location & Academy -->
+    <text x="2" y="49" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="10" letter-spacing="3.2" fill="#A5C4B4">CRICKET TURF &amp; ACADEMY</text>
+    
+    <!-- Badge tag line -->
+    <rect x="2" y="56" width="168" height="15" rx="3" fill="#0A281B" stroke="#063D2E" stroke-width="1" />
+    <circle cx="10" cy="63.5" r="3" fill="#B6FF36" />
+    <text x="18" y="66.5" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="8.5" letter-spacing="1" fill="#B6FF36">MUZAFFARPUR, BIHAR</text>
+  </g>
+</svg>

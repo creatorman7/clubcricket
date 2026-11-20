@@ -1,0 +1,20 @@
+<!-- Cricket Bowling Machine Icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#B6FF36" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Machine housing -->
+  <rect x="7" y="3" width="10" height="9" rx="2" />
+  <!-- Dual bowling wheels inside -->
+  <circle cx="10" cy="7.5" r="1.5" />
+  <circle cx="14" cy="7.5" r="1.5" />
+  <!-- Ball ejection barrel -->
+  <line x1="17" y1="7.5" x2="21" y2="7.5" />
+  <circle cx="21" cy="7.5" r="1" fill="#B6FF36" />
+  <!-- Ball feeder chute -->
+  <path d="M7 6L4 4" />
+  <circle cx="3" cy="3.5" r="1" fill="#B6FF36" />
+  <!-- Tripod legs -->
+  <line x1="9" y1="12" x2="5" y2="21" />
+  <line x1="15" y1="12" x2="19" y2="21" />
+  <line x1="12" y1="12" x2="12" y2="21" />
+  <!-- Cross brace -->
+  <line x1="7" y1="17" x2="17" y2="17" />
+</svg>

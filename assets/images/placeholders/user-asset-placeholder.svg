@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="100%" height="100%">
+  <defs>
+    <radialGradient id="phGrad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0E4532" />
+      <stop offset="60%" stop-color="#062217" />
+      <stop offset="100%" stop-color="#050807" />
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="520" fill="url(#phGrad)" stroke="#063D2E" stroke-width="2" />
+
+  <!-- Dotted frame -->
+  <rect x="25" y="25" width="750" height="470" rx="12" fill="none" stroke="#B6FF36" stroke-width="2" stroke-dasharray="10 10" opacity="0.6" />
+
+  <!-- Central Camera / Asset Icon -->
+  <g transform="translate(400, 210)">
+    <circle cx="0" cy="0" r="45" fill="#061B13" stroke="#B6FF36" stroke-width="2.5" />
+    <!-- Camera -->
+    <path d="M-22 -8 L-15 -18 L15 -18 L22 -8 L28 -8 C31 -8 34 -5 34 -2 L34 20 C34 23 31 26 28 26 L-28 26 C-31 26 -34 23 -34 20 L-34 -2 C-34 -5 -31 -8 -28 -8 Z" fill="none" stroke="#F7F9F5" stroke-width="2.5" />
+    <circle cx="0" cy="8" r="10" stroke="#B6FF36" stroke-width="2.5" fill="none" />
+  </g>
+
+  <!-- Typography -->
+  <text x="400" y="300" text-anchor="middle" font-family="'Syne', 'Outfit', sans-serif" font-weight="800" font-size="20" fill="#F7F9F5" letter-spacing="1">JSC OFFICIAL ASSET PLACEHOLDER</text>
+  <text x="400" y="330" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="13" fill="#B6FF36">Drop your photo into: assets/images/...</text>
+  <text x="400" y="355" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="400" font-size="12" fill="#A5C4B4">Recommended resolution: 1200 x 800px (16:9 or 3:2 ratio)</text>
+</svg>
