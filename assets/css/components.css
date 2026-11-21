@@ -1185,6 +1185,11 @@ input:checked + .switch-slider:before {
   display: none;
 }
 
+#main-content > [data-page-section][hidden],
+footer[data-page-section][hidden] {
+  display: none !important;
+}
+
 .lightbox-caption-text {
   margin-top: 16px;
   text-align: center;

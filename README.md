@@ -61,7 +61,8 @@ This platform establishes a digital identity for JSC, positioning it as an inter
     │   ├── gallery/             # Filterable sports photography gallery items
     │   └── placeholders/        # Formatted asset placeholder for user photos
     ├── logo/
-    │   ├── jsc-logo.svg         # Official vector brand logo (Full emblem + text)
+    │   ├── logo.jpg             # Uploaded JSC brand logo
+    │   ├── jsc-logo.svg         # Original vector brand logo
     │   └── jsc-symbol.svg       # Brand monogram symbol
     └── icons/                   # Custom athletic SVGs (turf, nets, bowling machine, etc.)
 ```
@@ -72,11 +73,13 @@ This platform establishes a digital identity for JSC, positioning it as an inter
 
 Open `https://your-domain.com/admin/` and sign in with the admin password configured during deployment. The panel lets you:
 
+- Customize homepage section text and cards, show or hide sections, and move sections up or down.
+- Replace section images, including the hero, facilities, academy, and gallery placeholders.
 - Upload and remove gallery photos and videos.
 - Set the rate season, weekday day/night rates, weekend surcharge, and bowling machine package prices.
 - Publish changes directly to the live website.
 
-The panel requires PHP 8.1+ and writable `admin/data/` and `assets/uploads/` folders. Follow the [Hostinger setup instructions](./DEPLOYMENT-HOSTINGER.md#admin-panel-setup) once after uploading the website files.
+The panel requires PHP 8.1+ and writable `admin/data/` and `assets/uploads/` folders. Keep `admin/data/site-content.json` and `assets/uploads/` when deploying future site updates. Follow the [Hostinger setup instructions](./DEPLOYMENT-HOSTINGER.md#admin-panel-setup) once after uploading the website files.
 
 ### Admin password setup
 

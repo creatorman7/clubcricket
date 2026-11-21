@@ -1,6 +1,16 @@
 (function () {
   window.JSC_CONFIG_READY = false;
   window.JSC_MEDIA = [];
+  window.JSC_PAGE = null;
+  window.JSC_ESCAPE_HTML = function (value) {
+    return String(value).replace(/[&<>"']/g, (character) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    })[character]);
+  };
 
   function applyManagedContent(content) {
     if (!content || !content.pricing || !Array.isArray(content.pricing.facilities) || !Array.isArray(content.pricing.bowlingMachinePackages)) {
@@ -31,6 +41,55 @@
         packageInfo.price = savedPackage.price;
       }
     });
+
+    const page = content.page;
+    if (page && page.sections && Array.isArray(page.order) && page.images) {
+      window.JSC_PAGE = page;
+
+      const sectionContent = (id) => page.sections[id]?.content;
+      const facilitiesContent = sectionContent("facilities");
+      facilitiesContent?.cards?.forEach((card, index) => {
+        const facility = JSC_CONFIG.pricing.facilities[index];
+        if (!facility) return;
+        facility.badge = card.badge;
+        facility.title = card.title;
+        facility.subtitle = card.description;
+        facility.features = card.features;
+      });
+
+      const academy = sectionContent("academy");
+      if (academy) {
+        JSC_CONFIG.academy.heading = academy.title;
+        JSC_CONFIG.academy.subheading = academy.description;
+        JSC_CONFIG.academy.highlights = academy.highlights;
+        JSC_CONFIG.academy.batches = academy.batches;
+      }
+
+      const achievements = sectionContent("achievements");
+      if (achievements) JSC_CONFIG.achievements = achievements.items;
+
+      const offers = sectionContent("offers");
+      if (offers) JSC_CONFIG.offers = offers.items;
+
+      const reviews = sectionContent("reviews");
+      if (reviews) {
+        JSC_CONFIG.reviews = reviews.items.map((item) => ({
+          ...item,
+          rating: Number(item.rating) || 0,
+          source: "Verified Player Review",
+        }));
+      }
+
+      const pricingContent = sectionContent("pricing");
+      if (pricingContent) JSC_CONFIG.pricing.disclaimer = pricingContent.disclaimer;
+
+      const contact = sectionContent("contact");
+      if (contact) {
+        JSC_CONFIG.contact.phoneDisplay = contact.phoneDisplay;
+        JSC_CONFIG.contact.email = contact.email;
+        JSC_CONFIG.club.fullAddress = contact.address;
+      }
+    }
 
     if (Array.isArray(content.media)) {
       window.JSC_MEDIA = content.media.filter((item) =>

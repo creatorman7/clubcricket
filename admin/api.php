@@ -144,6 +144,117 @@ try {
         jsc_json_response(['pricing' => $content['pricing']]);
     }
 
+    if ($action === 'save-page') {
+        $page = $request['page'] ?? null;
+        if (!is_array($page)) {
+            jsc_json_response(['error' => 'Website content is missing.'], 400);
+        }
+
+        jsc_validate_page_value($page, $content['page']);
+
+        $expectedSections = array_values(array_filter(
+            array_keys($content['page']['sections']),
+            static fn (string $sectionId): bool => $sectionId !== 'footer'
+        ));
+        $submittedOrder = $page['order'];
+        $sortedExpected = $expectedSections;
+        $sortedOrder = $submittedOrder;
+        sort($sortedExpected);
+        sort($sortedOrder);
+        if ($sortedExpected !== $sortedOrder) {
+            jsc_json_response(['error' => 'Every website section must appear exactly once in the section order.'], 422);
+        }
+
+        foreach ($page['sections']['offers']['content']['items'] as $offer) {
+            if (!in_array($offer['status'], ['ACTIVE', 'EXPIRED'], true)) {
+                jsc_json_response(['error' => 'Offer status must be ACTIVE or EXPIRED.'], 422);
+            }
+        }
+        foreach ($page['sections']['gallery']['content']['items'] as $item) {
+            if (!in_array($item['category'], ['turf', 'nets', 'bowling', 'academy'], true)) {
+                jsc_json_response(['error' => 'Choose a valid gallery category for every gallery card.'], 422);
+            }
+        }
+        foreach ($page['sections']['reviews']['content']['items'] as $review) {
+            if (!preg_match('/^[1-5]$/', $review['rating'])) {
+                jsc_json_response(['error' => 'Review ratings must be from 1 to 5 stars.'], 422);
+            }
+        }
+
+        foreach ($page['images'] as $imageKey => $imagePath) {
+            if (!preg_match('/^\\/?assets\\/[A-Za-z0-9._\\/-]+$/', $imagePath) || str_contains($imagePath, '..')) {
+                jsc_json_response(['error' => "The image path for {$imageKey} is invalid."], 422);
+            }
+            $localPath = dirname(__DIR__) . '/' . ltrim($imagePath, '/');
+            if (!is_file($localPath)) {
+                jsc_json_response(['error' => "The selected image for {$imageKey} could not be found."], 422);
+            }
+        }
+
+        $content['page'] = $page;
+        jsc_save_content($content);
+        jsc_json_response(['page' => $content['page']]);
+    }
+
+    if ($action === 'upload-section-image') {
+        $target = $request['target'] ?? '';
+        if (!is_string($target) || !array_key_exists($target, $content['page']['images'])) {
+            jsc_json_response(['error' => 'Choose a valid website image slot.'], 422);
+        }
+
+        $upload = $_FILES['file'] ?? null;
+        if (!is_array($upload)) {
+            jsc_json_response(['error' => 'Choose an image to upload.'], 422);
+        }
+        $uploadError = $upload['error'] ?? UPLOAD_ERR_NO_FILE;
+        if ($uploadError === UPLOAD_ERR_INI_SIZE || $uploadError === UPLOAD_ERR_FORM_SIZE) {
+            jsc_json_response(['error' => 'The image exceeds the hosting upload limit.'], 413);
+        }
+        if ($uploadError !== UPLOAD_ERR_OK || !isset($upload['tmp_name']) || !is_string($upload['tmp_name']) || !is_uploaded_file($upload['tmp_name'])) {
+            jsc_json_response(['error' => 'The image upload did not complete. Try again or check hosting upload limits.'], 422);
+        }
+
+        $imageTypes = [
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/webp' => 'webp',
+            'image/gif' => 'gif',
+        ];
+        $fileInfo = new finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $fileInfo->file($upload['tmp_name']);
+        if (!is_string($mimeType) || !isset($imageTypes[$mimeType])) {
+            jsc_json_response(['error' => 'Use a JPG, PNG, WebP, or GIF image.'], 415);
+        }
+        if (!isset($upload['size']) || !is_int($upload['size']) || $upload['size'] < 1 || $upload['size'] > 12 * 1024 * 1024) {
+            jsc_json_response(['error' => 'Website images must be 12 MB or smaller.'], 413);
+        }
+
+        $uploadDirectory = dirname(__DIR__) . '/assets/uploads';
+        if (!is_dir($uploadDirectory) && !mkdir($uploadDirectory, 0755, true) && !is_dir($uploadDirectory)) {
+            jsc_json_response(['error' => 'The uploads folder could not be created. Check hosting permissions.'], 500);
+        }
+
+        $fileName = bin2hex(random_bytes(16)) . '.' . $imageTypes[$mimeType];
+        $destination = $uploadDirectory . '/' . $fileName;
+        if (!move_uploaded_file($upload['tmp_name'], $destination)) {
+            jsc_json_response(['error' => 'The image could not be saved. Check hosting permissions.'], 500);
+        }
+        if (!chmod($destination, 0644)) {
+            unlink($destination);
+            jsc_json_response(['error' => 'The uploaded image permissions could not be set.'], 500);
+        }
+
+        $content['page']['images'][$target] = '/assets/uploads/' . $fileName;
+        try {
+            jsc_save_content($content);
+        } catch (RuntimeException $error) {
+            unlink($destination);
+            throw $error;
+        }
+
+        jsc_json_response(['target' => $target, 'url' => $content['page']['images'][$target]]);
+    }
+
     if ($action === 'upload') {
         $upload = $_FILES['file'] ?? null;
         if (!is_array($upload)) {

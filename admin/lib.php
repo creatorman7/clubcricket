@@ -71,3 +71,56 @@ function jsc_read_json_request(): array
 
     return $request;
 }
+
+function jsc_validate_page_value(mixed $value, mixed $template, string $path = 'page'): void
+{
+    if (is_array($template)) {
+        if (!is_array($value)) {
+            throw new RuntimeException("Invalid page content at {$path}.");
+        }
+
+        if (array_is_list($template)) {
+            if (!array_is_list($value) || count($value) > 30) {
+                throw new RuntimeException("Invalid list at {$path}; lists can contain up to 30 items.");
+            }
+            if ($template === []) {
+                if ($value !== []) {
+                    throw new RuntimeException("Unexpected list items at {$path}.");
+                }
+                return;
+            }
+            foreach ($value as $index => $item) {
+                jsc_validate_page_value($item, $template[0], "{$path}[{$index}]");
+            }
+            return;
+        }
+
+        if (array_is_list($value)) {
+            throw new RuntimeException("Invalid page content at {$path}.");
+        }
+        $expectedKeys = array_keys($template);
+        $submittedKeys = array_keys($value);
+        sort($expectedKeys);
+        sort($submittedKeys);
+        if ($expectedKeys !== $submittedKeys) {
+            throw new RuntimeException("Page fields do not match the expected structure at {$path}.");
+        }
+        foreach ($template as $key => $childTemplate) {
+            jsc_validate_page_value($value[$key], $childTemplate, "{$path}.{$key}");
+        }
+        return;
+    }
+
+    if (is_string($template)) {
+        if (!is_string($value) || strlen($value) > 5000 || preg_match('//u', $value) !== 1) {
+            throw new RuntimeException("Text at {$path} must be valid UTF-8 and no longer than 5,000 bytes.");
+        }
+        return;
+    }
+
+    if (is_bool($template) && is_bool($value)) {
+        return;
+    }
+
+    throw new RuntimeException("Invalid page content type at {$path}.");
+}

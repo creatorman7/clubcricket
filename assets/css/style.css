@@ -376,8 +376,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .brand-logo-img {
-  height: 48px;
-  width: auto;
+  width: 64px;
+  height: 64px;
+  flex: 0 0 auto;
+  object-fit: contain;
 }
 
 .nav-desktop-menu {
@@ -587,8 +589,20 @@ h1, h2, h3, h4, h5, h6 {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
   .reveal-on-scroll {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-logo-img {
+    width: 54px;
+    height: 54px;
+  }
+
+  .nav-actions > .jsc-btn {
+    display: none;
   }
 }

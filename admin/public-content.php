@@ -9,6 +9,7 @@ try {
     jsc_json_response([
         'pricing' => $content['pricing'],
         'media' => $content['media'],
+        'page' => $content['page'],
     ]);
 } catch (JsonException | RuntimeException $error) {
     error_log('JSC public content error: ' . $error->getMessage());

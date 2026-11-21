@@ -33,6 +33,13 @@ function runPricing() {
   const seasonLabel = document.getElementById("pricing-season-label");
   const calculatorWeekendOption = document.getElementById("calc-weekend-option");
   const contactFacility = document.getElementById("contact-facility");
+  const escapeHtml = window.JSC_ESCAPE_HTML || ((value) => String(value).replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  })[character]));
 
   // State
   let isWeekend = false;
@@ -81,16 +88,16 @@ function runPricing() {
 
       card.innerHTML = `
         <div class="pricing-card-header">
-          <span class="jsc-badge jsc-badge-lime">${facility.badge}</span>
-          <h3 class="pricing-card-title">${facility.title}</h3>
-          <p class="pricing-card-subtitle">${facility.subtitle}</p>
+          <span class="jsc-badge jsc-badge-lime">${escapeHtml(facility.badge)}</span>
+          <h3 class="pricing-card-title">${escapeHtml(facility.title)}</h3>
+          <p class="pricing-card-subtitle">${escapeHtml(facility.subtitle)}</p>
         </div>
 
         <div class="pricing-rate-box">
           <div class="pricing-price-wrap">
             <span class="pricing-currency">₹</span>
             <span class="pricing-amount" id="price-amount-${facility.id}">${effectivePrice}</span>
-            <span class="pricing-unit">/${facility.unit.replace("per ", "")}</span>
+            <span class="pricing-unit">/${escapeHtml(facility.unit.replace("per ", ""))}</span>
           </div>
           <div class="pricing-period-meta">
             <span class="meta-tag"><span class="meta-dot"></span>${dayLabel}</span>
@@ -102,7 +109,7 @@ function runPricing() {
           ${facility.features.map((f) => `
             <li>
               <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#B6FF36" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>${f}</span>
+              <span>${escapeHtml(f)}</span>
             </li>
           `).join("")}
         </ul>

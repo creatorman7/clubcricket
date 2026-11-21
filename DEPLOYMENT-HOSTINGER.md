@@ -76,7 +76,7 @@ This guide walks you through deploying the Jimmy Sports Club website to your **H
 3. In File Manager, copy `public_html/admin/config.example.php` to `public_html/admin/config.php`. Replace `REPLACE_WITH_A_PASSWORD_HASH` with the generated hash. Do not commit or share `config.php`.
 4. Ensure PHP can write to `public_html/admin/data/` and `public_html/assets/uploads/`. The directory `.htaccess` rules block direct access to private content and prevent uploaded scripts from running.
 5. To support videos up to 100 MB, set PHP `upload_max_filesize` to at least `100M` and `post_max_size` to at least `110M` in hPanel’s PHP configuration. The hosting plan’s limits may be lower.
-6. Visit `https://your-domain.com/admin/`, sign in, and test a small photo upload and a rate change. The website reads saved content from `admin/public-content.php`.
+6. Visit `https://your-domain.com/admin/`, sign in, and test a section text change, section visibility/order change, image upload, and rate change. The website reads saved content from `admin/public-content.php`.
 
 ---
 

@@ -8,14 +8,14 @@ $isConfigured = is_file(__DIR__ . '/config.php');
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>JSC Admin | Jimmy Sports Club</title>
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="icon" type="image/jpeg" href="../assets/logo/logo.jpg">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="admin.css">
 </head>
 <body class="admin-body">
   <header class="admin-topbar">
     <a class="admin-brand" href="../" aria-label="Jimmy Sports Club website">
-      <img src="../assets/logo/jsc-logo.svg" alt="Jimmy Sports Club">
+      <img src="../assets/logo/logo.jpg" alt="Jimmy Sports Club">
       <span>CLUB ADMIN</span>
     </a>
     <a class="admin-view-site" href="../" target="_blank" rel="noopener noreferrer">View website <span aria-hidden="true">↗</span></a>
@@ -62,6 +62,32 @@ $isConfigured = is_file(__DIR__ . '/config.php');
           <strong id="season-summary">Winter 2026 Official Rates</strong>
         </article>
       </div>
+
+      <section class="admin-panel" aria-labelledby="page-editor-title">
+        <div class="admin-panel-heading">
+          <div>
+            <span class="admin-kicker">FULL WEBSITE EDITOR</span>
+            <h2 id="page-editor-title">Customize homepage sections</h2>
+            <p class="admin-muted">Edit text and cards, show or hide sections, and change their order. Save to publish your changes.</p>
+          </div>
+        </div>
+        <div class="admin-page-section-list" id="page-section-editor"></div>
+        <div class="admin-form-actions">
+          <p class="admin-status" id="page-status" role="status" aria-live="polite"></p>
+          <button class="admin-button admin-button-primary" id="save-page-button" type="button">Save website content</button>
+        </div>
+      </section>
+
+      <section class="admin-panel" aria-labelledby="page-images-title">
+        <div class="admin-panel-heading">
+          <div>
+            <span class="admin-kicker">SECTION PHOTOS</span>
+            <h2 id="page-images-title">Website images</h2>
+            <p class="admin-muted">Upload images for the hero, facilities, academy, or gallery. JPG, PNG, WebP, and GIF up to 12 MB.</p>
+          </div>
+        </div>
+        <div class="admin-page-image-grid" id="page-image-editor"></div>
+      </section>
 
       <section class="admin-panel" aria-labelledby="pricing-title">
         <div class="admin-panel-heading">

@@ -41,5 +41,257 @@
       }
     ]
   },
-  "media": []
+  "media": [],
+  "page": {
+    "order": [
+      "home",
+      "stats",
+      "about",
+      "facilities",
+      "academy",
+      "achievements",
+      "pricing",
+      "offers",
+      "gallery",
+      "reviews",
+      "contact"
+    ],
+    "sections": {
+      "home": {
+        "visible": true,
+        "content": {
+          "eyebrow": "MUZAFFARPUR'S PREMIER CRICKET DESTINATION",
+          "headlineTop": "BUILT FOR THE GAME.",
+          "headlineBottom": "BORN TO PLAY.",
+          "description": "Experience the next level of cricket at Jimmy Sports Club. Train harder, play smarter and become part of a sporting community built around passion and performance.",
+          "exploreButton": "EXPLORE JSC",
+          "bookingButton": "BOOK YOUR SLOT",
+          "locationLabel": "CLUB LOCATION",
+          "locationTitle": "JIMMY SPORTS CLUB",
+          "locationSubtitle": "Muzaffarpur, Bihar",
+          "locationDetail": "Cricket Turf | Practice Nets | JSC Academy",
+          "performanceLabel": "PERFORMANCE SPEC",
+          "performanceTitle": "FLOODLIT ARENA & SIMULATOR",
+          "performanceSubtitle": "All-Weather Turf • 100+ km/h Bowling Machine",
+          "performanceDetail": "Winter Rates: 6:00 AM – 11:00 PM"
+        }
+      },
+      "stats": {
+        "visible": true,
+        "content": {
+          "items": [
+            {"title": "Floodlit Cricket Turf", "description": "All-weather playing surface"},
+            {"title": "Covered Practice Nets", "description": "Batting & bowling lanes"},
+            {"title": "Bowling Machine Practice", "description": "Programmable pace & swing"},
+            {"title": "JSC Cricket Academy", "description": "Youth player development"}
+          ]
+        }
+      },
+      "about": {
+        "visible": true,
+        "content": {
+          "label": "Identity & Vision",
+          "title": "A DESTINATION WHERE CRICKET PASSION MEETS PERFORMANCE.",
+          "lead": "Jimmy Sports Club was conceived with a clear vision: to elevate sporting culture in Muzaffarpur and provide cricketers of all skill levels with the quality infrastructure they deserve.",
+          "body": "More than just a playing ground, JSC is where young athletes build discipline, competitive players hone their technique, and cricket enthusiasts come together under floodlights. By combining an all-weather artificial turf, covered training nets, automated bowling simulators, and dedicated academy coaching, JSC is empowering the next generation of cricketing talent across Bihar.",
+          "pillars": [
+            {"title": "Cricket Culture", "description": "Fostering a vibrant community built on sportsmanship, enthusiasm, and competitive integrity."},
+            {"title": "Player Development", "description": "Equipping junior and senior athletes with repetitive stroke practice and structured drills."},
+            {"title": "Quality Infrastructure", "description": "Pristine turf surface, tournament netting, and high-lux floodlighting for night matches."},
+            {"title": "Sporting in Bihar", "description": "Championing grassroots sports access, local tournaments, and professional training in Muzaffarpur."}
+          ],
+          "stats": [
+            {"value": "100+", "label": "KM/H Bowling Speeds"},
+            {"value": "100%", "label": "All-Weather Turf"},
+            {"value": "7 Days", "label": "Open Everyday"},
+            {"value": "5.0★", "label": "Player Satisfaction"}
+          ],
+          "quote": "\"Our aim is simple: provide players in North Bihar with the same professional practice conditions found at national cricket academies.\"",
+          "button": "Explore Facilities"
+        }
+      },
+      "facilities": {
+        "visible": true,
+        "content": {
+          "label": "State-Of-The-Art Infrastructure",
+          "title": "BUILT FOR EVERY MATCH & DRILL.",
+          "description": "Explore JSC's specialized cricket facilities engineered for competitive match play, technical practice, and intense repetition.",
+          "cards": [
+            {
+              "badge": "Match & Box Cricket",
+              "title": "FLOODLIT CRICKET TURF",
+              "description": "Muzaffarpur's premier artificial cricket turf featuring an all-weather playing surface, full boundary safety netting, and high-lux tournament floodlights for thrilling night matches.",
+              "features": [
+                "Professional artificial turf with true, predictable bounce",
+                "High-lux LED floodlight towers for clear night play",
+                "Marked center pitch strip & regulation crease lines",
+                "Ideal for 6v6, 8v8 box cricket & club friendlies"
+              ],
+              "button": "Enquire Turf on WhatsApp"
+            },
+            {
+              "badge": "Technique Drills",
+              "title": "COVERED CRICKET PRACTICE NETS",
+              "description": "Dedicated weather-protected cricket practice nets with high-density impact enclosures, allowing bowlers and batsmen to train without weather interruptions.",
+              "features": [
+                "Covered overhead structure protecting from rain & sun",
+                "Heavy-gauge safety nets with multiple practice lanes",
+                "Full bowling run-up and regulation batting crease",
+                "Suited for pace, seam, and spin bowling sessions"
+              ],
+              "button": "Enquire Nets on WhatsApp"
+            },
+            {
+              "badge": "Pro Simulator",
+              "title": "AUTOMATED BOWLING MACHINE",
+              "description": "High-precision cricket bowling simulator delivering consistent deliveries to groove your batting mechanics, footwork against pace, and stroke execution.",
+              "features": [
+                "Programmable speeds from 70 km/h to 130+ km/h",
+                "Inswing, outswing, leg-break, and off-spin delivery controls",
+                "Targeted line & length repetition (Bouncers, Yorkers, Good Length)",
+                "Packages available from 10 overs up to 70 overs"
+              ],
+              "button": "Enquire Bowling Machine"
+            }
+          ]
+        }
+      },
+      "academy": {
+        "visible": true,
+        "content": {
+          "label": "Player Development Pathway",
+          "title": "JIMMY SPORTS CLUB ACADEMY",
+          "description": "Cultivating technical excellence, game intelligence, and competitive spirit in aspiring young cricketers across Muzaffarpur and Bihar.",
+          "bannerTitle": "STRUCTURED CRICKET COACHING & SKILL GROOVING",
+          "paragraphs": [
+            "JSC Academy provides young players with an all-round development environment. Our coaching methodology blends orthodox fundamentals with modern training aids—including automated bowling simulators, video analysis feedback, and regular match simulations on the turf.",
+            "Whether learning the first forward defensive stroke or preparing for district and school tournaments, our trainees benefit from dedicated focus, fitness drills, and consistent net practice."
+          ],
+          "button": "Academy Admission Enquiry",
+          "highlights": [
+            {"title": "Technical Stance & Grip", "description": "Emphasis on balance, head position, backlift, and orthodox footwork against pace and spin."},
+            {"title": "Bowling Action Mechanics", "description": "Biomechanical guidance for fast bowlers and spinners to build rhythm, consistency, and avoid injury."},
+            {"title": "Machine Repetition", "description": "Controlled bowling machine sessions to ingrain muscle memory on cuts, pulls, and drives."},
+            {"title": "Match Simulation", "description": "Regular competitive scenario matches on the all-weather floodlit turf under pressure situations."}
+          ],
+          "batchesBadge": "Current Batches",
+          "batchesTitle": "TRAINING SCHEDULES",
+          "batchesNotice": "Admissions Open for Winter & Spring Sessions",
+          "batches": [
+            {"name": "Morning Cadets Batch", "time": "6:30 AM – 8:30 AM", "target": "Foundations & Junior Development"},
+            {"name": "Evening Performance Batch", "time": "4:00 PM – 6:30 PM", "target": "Technical Nets & Match Practice"},
+            {"name": "Weekend Intensive Squad", "time": "Saturdays & Sundays", "target": "Match Scenarios & Fitness"}
+          ]
+        }
+      },
+      "achievements": {
+        "visible": true,
+        "content": {
+          "label": "Verified Milestones",
+          "title": "CLUB ACHIEVEMENTS & EVENTS",
+          "description": "Highlighting our sporting journey, facility development, tournament hosting, and community impact in Muzaffarpur.",
+          "items": [
+            {"year": "2024–2026", "title": "State-of-the-Art Cricket Turf Launch", "description": "Established Muzaffarpur's premier floodlit all-weather cricket facility at Jail Chowk, Bandh Road, providing athletes with world-class turf access."},
+            {"year": "2025", "title": "Automated Bowling Machine Integration", "description": "Introduced advanced programmable cricket bowling machine practice to North Bihar, enabling players to face 100+ km/h pace and swing variations."},
+            {"year": "2025–2026", "title": "Grassroots Academy Programs", "description": "Enrolled enthusiastic young cricketers into JSC Academy, mentoring player cohorts across morning and evening skill-building sessions."},
+            {"year": "Ongoing", "title": "Night Box-Cricket & Club Tournaments", "description": "Hosted highly energetic evening cricket matches and community sports leagues under professional floodlight illumination."}
+          ]
+        }
+      },
+      "pricing": {
+        "visible": true,
+        "content": {
+          "label": "Official Rates & Packages",
+          "title": "TRANSPARENT PRICING",
+          "description": "Clear, honest pricing with zero hidden costs. Check weekday and weekend rates for our floodlit turf, covered nets, and bowling machine packages.",
+          "disclaimerTitle": "Official Pricing Notice:",
+          "disclaimer": "Current rates are shown below. Weekend bookings include the configured surcharge.",
+          "packageTitle": "AUTOMATED BOWLING MACHINE PACKAGES",
+          "packageDescription": "Fixed overs practice packages for batting refinement. Ball count: 6 balls per over.",
+          "calculatorTitle": "Quick Slot Total Calculator"
+        }
+      },
+      "offers": {
+        "visible": true,
+        "content": {
+          "label": "Club Bulletins",
+          "title": "CURRENT OFFERS & ANNOUNCEMENTS",
+          "description": "Stay updated with seasonal promotions, tournament registrations, and academy announcements.",
+          "items": [
+            {"id": "winter-camp", "title": "Winter Cricket Skill Camp 2026", "category": "JSC Academy", "status": "ACTIVE", "description": "Intensive morning and evening technique camps for young cricketers focusing on batting mechanics, footwork against pace, and spin mastery.", "validity": "Valid through Winter Season", "ctaText": "Enquire on WhatsApp", "tag": "Academy Spotlight"},
+            {"id": "corporate-leagues", "title": "Weekend Corporate & Club Tournament Slots", "category": "Turf Booking", "status": "ACTIVE", "description": "Block multi-hour turf slots for your team or weekend corporate tournament under high-lux floodlights with priority scheduling.", "validity": "Advance weekend booking recommended", "ctaText": "Check Slot Availability", "tag": "Tournament Special"},
+            {"id": "intro-launch", "title": "Introductory Launch Pricing (₹500 Day / ₹700 Night)", "category": "Pricing Notice", "status": "EXPIRED", "description": "Introductory launch rates have concluded. Official verified rates of ₹800/hr (Turf) and ₹200/hr (Nets) are now active across all channels.", "validity": "Concluded", "ctaText": "View Current Pricing", "tag": "Archived Notice"}
+          ]
+        }
+      },
+      "gallery": {
+        "visible": true,
+        "content": {
+          "label": "Visual Atmosphere",
+          "title": "JSC ACTION GALLERY",
+          "description": "Glimpses of match action, technical drills, night floodlight games, and club activities at Jimmy Sports Club.",
+          "items": [
+            {"category": "turf", "title": "Night Cricket Match", "description": "Floodlit Turf Arena • High-Lux Illumination"},
+            {"category": "nets", "title": "Batting Drills in Covered Nets", "description": "Technique Focus • Pace & Seam Lanes"},
+            {"category": "bowling", "title": "High-Precision Bowling Machine", "description": "Programmable Trajectory & Swing"},
+            {"category": "academy", "title": "JSC Academy Cadets", "description": "Junior Player Skill Camps"},
+            {"category": "turf", "title": "Night Arena Illumination", "description": "Match-Grade Lighting • Night Tournaments"}
+          ]
+        }
+      },
+      "reviews": {
+        "visible": true,
+        "content": {
+          "label": "Community Feedback",
+          "title": "VERIFIED PLAYER REVIEWS",
+          "description": "Authentic experiences from cricketers, team captains, and academy parents who play and practice at Jimmy Sports Club.",
+          "items": [
+            {"author": "Verified Cricket Player", "rating": "5", "role": "Club Batsman, Muzaffarpur", "text": "The turf quality at Jimmy Sports Club is unmatched in Muzaffarpur. The bounce is true, the lighting for night matches is exceptionally bright, and the staff manages slot bookings smoothly over WhatsApp."},
+            {"author": "Local Tournament Organizer", "rating": "5", "role": "Box Cricket League", "text": "We hosted our weekend night tournament here. The floodlights give great visibility, the perimeter nets keep the game contained, and the all-weather surface holds up perfectly. Highly recommended for cricket enthusiasts."},
+            {"author": "Academy Parent", "rating": "5", "role": "JSC Academy Trainee Parent", "text": "Having covered nets and an automated bowling machine right here in Muzaffarpur is a game changer for young cricketers. My son gets consistent practice on his front-foot strokes every week."}
+          ]
+        }
+      },
+      "contact": {
+        "visible": true,
+        "content": {
+          "label": "Find Us In Muzaffarpur",
+          "title": "CONNECT & BOOK YOUR SLOT",
+          "description": "We are located near Jail Chowk, Bandh Road. Contact us directly on WhatsApp or telephone to reserve your practice hours.",
+          "cardTitle": "CLUB CONTACT DETAILS",
+          "addressLabel": "Club Location",
+          "phoneLabel": "Direct Phone Call",
+          "whatsappLabel": "WhatsApp Bookings",
+          "hoursLabel": "Operating Hours",
+          "hours": "6:00 AM – 11:00 PM (Monday to Sunday, All 7 Days)",
+          "phoneDisplay": "+91 92410 99299",
+          "email": "jsc.jimmysportsclub@gmail.com",
+          "address": "Jail Chowk, Bandh Road, Kanhauli Vishundat (Sir Syed Colony / Chandwara), Muzaffarpur, Bihar - 842001",
+          "formTitle": "RESERVE A PRACTICE SLOT",
+          "formDescription": "Fill in your details below and click submit. It will automatically prepare a formatted WhatsApp booking request ready to send to our management.",
+          "submitText": "Send Booking Request via WhatsApp"
+        }
+      },
+      "footer": {
+        "visible": true,
+        "content": {
+          "bio": "Jimmy Sports Club (JSC) is Muzaffarpur's premier cricket training and sports facility. Built for the game. Born to play.",
+          "socialLabel": "Follow @jimmysportsclub"
+        }
+      }
+    },
+    "images": {
+      "logo": "assets/logo/logo.jpg",
+      "hero": "assets/images/hero/cricket-hero-silhouette.svg",
+      "facilityTurf": "assets/images/facilities/floodlit-turf.svg",
+      "facilityNets": "assets/images/facilities/practice-nets.svg",
+      "facilityBowling": "assets/images/facilities/bowling-machine.svg",
+      "academy": "assets/images/academy/academy-training.svg",
+      "galleryTurf": "assets/images/gallery/gallery-turf-match.svg",
+      "galleryNets": "assets/images/gallery/gallery-nets-drill.svg",
+      "galleryBowling": "assets/images/gallery/gallery-bowling-sim.svg",
+      "galleryAcademy": "assets/images/gallery/gallery-academy-kids.svg",
+      "galleryLights": "assets/images/gallery/gallery-night-lights.svg"
+    }
+  }
 }

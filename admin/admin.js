@@ -8,8 +8,42 @@
   const uploadForm = document.getElementById("upload-form");
   const uploadStatus = document.getElementById("upload-status");
   const mediaList = document.getElementById("media-list");
+  const pageSectionEditor = document.getElementById("page-section-editor");
+  const pageImageEditor = document.getElementById("page-image-editor");
+  const pageStatus = document.getElementById("page-status");
+  const savePageButton = document.getElementById("save-page-button");
   let csrfToken = "";
   let mediaItems = [];
+  let pageData = null;
+  let pageTemplates = {};
+
+  const sectionLabels = {
+    home: "Home / hero",
+    stats: "Quick feature stats",
+    about: "About JSC",
+    facilities: "Facilities",
+    academy: "Academy",
+    achievements: "Achievements",
+    pricing: "Pricing",
+    offers: "Offers",
+    gallery: "Gallery",
+    reviews: "Player reviews",
+    contact: "Contact & booking",
+    footer: "Footer",
+  };
+  const imageLabels = {
+    logo: "Club logo",
+    hero: "Home hero artwork",
+    facilityTurf: "Floodlit turf",
+    facilityNets: "Practice nets",
+    facilityBowling: "Bowling machine",
+    academy: "Academy",
+    galleryTurf: "Gallery: turf match",
+    galleryNets: "Gallery: practice nets",
+    galleryBowling: "Gallery: bowling machine",
+    galleryAcademy: "Gallery: academy",
+    galleryLights: "Gallery: floodlights",
+  };
 
   function showStatus(element, message, kind) {
     element.textContent = message;
@@ -73,6 +107,224 @@
 
     document.getElementById("weekend-summary").textContent = `${pricing.weekendChargePercent}%`;
     document.getElementById("season-summary").textContent = pricing.season || "—";
+  }
+
+  function humanize(value) {
+    return value
+      .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+      .replace(/[_-]+/g, " ")
+      .replace(/^./, (letter) => letter.toUpperCase());
+  }
+
+  function cloneValue(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
+
+  function collectArrayTemplates(value, path) {
+    if (Array.isArray(value)) {
+      if (value.length) pageTemplates[path] = cloneValue(value[0]);
+      value.forEach((item, index) => collectArrayTemplates(item, `${path}.${index}`));
+      return;
+    }
+    if (value && typeof value === "object") {
+      Object.entries(value).forEach(([key, child]) => collectArrayTemplates(child, `${path}.${key}`));
+    }
+  }
+
+  function renderEditorValue(parent, key, value, path, templateItem) {
+    if (Array.isArray(value)) {
+      const list = document.createElement("fieldset");
+      list.className = "admin-content-list";
+      const legend = document.createElement("legend");
+      legend.textContent = humanize(key);
+      list.append(legend);
+
+      value.forEach((item, index) => {
+        const row = document.createElement("fieldset");
+        row.className = "admin-content-list-item";
+        const rowHeading = document.createElement("div");
+        rowHeading.className = "admin-content-list-heading";
+        const title = document.createElement("strong");
+        title.textContent = `${humanize(key)} ${index + 1}`;
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.className = "admin-content-remove";
+        removeButton.textContent = "Remove";
+        removeButton.addEventListener("click", () => {
+          value.splice(index, 1);
+          renderPageEditor(pageData);
+        });
+        rowHeading.append(title, removeButton);
+        row.append(rowHeading);
+
+        if (item && typeof item === "object" && !Array.isArray(item)) {
+          Object.entries(item).forEach(([itemKey, itemValue]) => {
+            renderEditorValue(row, itemKey, itemValue, `${path}.${index}.${itemKey}`, templateItem?.[itemKey]);
+          });
+        } else {
+          renderEditorValue(row, `${key} item`, item, `${path}.${index}`, templateItem);
+        }
+        list.append(row);
+      });
+
+      const addButton = document.createElement("button");
+      addButton.type = "button";
+      addButton.className = "admin-button admin-button-quiet admin-content-add";
+      addButton.textContent = `Add ${humanize(key).toLowerCase()}`;
+      addButton.disabled = value.length >= 30 || templateItem === undefined;
+      addButton.addEventListener("click", () => {
+        value.push(cloneValue(templateItem));
+        renderPageEditor(pageData);
+      });
+      list.append(addButton);
+      parent.append(list);
+      return;
+    }
+
+    if (value && typeof value === "object") {
+      const group = document.createElement("fieldset");
+      group.className = "admin-content-group";
+      const legend = document.createElement("legend");
+      legend.textContent = humanize(key);
+      group.append(legend);
+      Object.entries(value).forEach(([childKey, childValue]) => {
+        renderEditorValue(group, childKey, childValue, `${path}.${childKey}`, templateItem?.[childKey]);
+      });
+      parent.append(group);
+      return;
+    }
+
+    const field = document.createElement("label");
+    field.className = "admin-page-field";
+    field.textContent = humanize(key);
+    const control = typeof value === "string" && (value.length > 100 || /description|text|quote|paragraph|body|validity/i.test(key))
+      ? document.createElement("textarea")
+      : document.createElement("input");
+    if (control instanceof HTMLInputElement) control.type = "text";
+    control.value = String(value ?? "");
+    control.addEventListener("input", () => {
+      const parts = path.split(".");
+      if (parts[0] === "page") parts.shift();
+      let target = pageData;
+      while (parts.length > 1) target = target[parts.shift()];
+      target[parts[0]] = control.value;
+    });
+    field.append(control);
+    parent.append(field);
+  }
+
+  function renderPageEditor(page) {
+    pageData = page;
+    pageTemplates = {};
+    collectArrayTemplates(pageData, "page");
+    pageSectionEditor.replaceChildren();
+
+    const orderedIds = [...pageData.order, ...Object.keys(pageData.sections).filter((id) => !pageData.order.includes(id))];
+    orderedIds.forEach((id) => {
+      const section = pageData.sections[id];
+      if (!section) return;
+
+      const details = document.createElement("details");
+      details.className = "admin-page-section";
+      const summary = document.createElement("summary");
+      summary.textContent = sectionLabels[id] || humanize(id);
+      details.append(summary);
+
+      const toolbar = document.createElement("div");
+      toolbar.className = "admin-page-section-toolbar";
+      const visibilityLabel = document.createElement("label");
+      visibilityLabel.className = "admin-page-visibility";
+      const visibility = document.createElement("input");
+      visibility.type = "checkbox";
+      visibility.checked = section.visible;
+      visibility.addEventListener("change", () => {
+        section.visible = visibility.checked;
+      });
+      visibilityLabel.append(visibility, document.createTextNode(" Show section on website"));
+      toolbar.append(visibilityLabel);
+
+      const orderIndex = pageData.order.indexOf(id);
+      if (orderIndex >= 0) {
+        ["Move up", "Move down"].forEach((label, directionIndex) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "admin-content-move";
+          button.textContent = label;
+          button.disabled = directionIndex === 0 ? orderIndex === 0 : orderIndex === pageData.order.length - 1;
+          button.addEventListener("click", () => {
+            const targetIndex = orderIndex + (directionIndex === 0 ? -1 : 1);
+            [pageData.order[orderIndex], pageData.order[targetIndex]] = [pageData.order[targetIndex], pageData.order[orderIndex]];
+            renderPageEditor(pageData);
+          });
+          toolbar.append(button);
+        });
+      }
+      details.append(toolbar);
+
+      const content = document.createElement("div");
+      content.className = "admin-page-section-content";
+      Object.entries(section.content || {}).forEach(([key, value]) => {
+        renderEditorValue(content, key, value, `page.sections.${id}.content.${key}`, pageTemplates[`page.sections.${id}.content.${key}`]);
+      });
+      details.append(content);
+      pageSectionEditor.append(details);
+    });
+
+    renderPageImages();
+  }
+
+  function renderPageImages() {
+    pageImageEditor.replaceChildren();
+    const adminLogo = document.querySelector(".admin-brand img");
+    if (adminLogo && pageData.images.logo) adminLogo.src = pageData.images.logo;
+    Object.entries(pageData.images || {}).forEach(([key, path]) => {
+      const card = document.createElement("article");
+      card.className = "admin-page-image-card";
+      const preview = document.createElement("img");
+      preview.src = safeMediaUrl(path) || new URL(path, window.location.href).href;
+      preview.alt = imageLabels[key] || humanize(key);
+      preview.loading = "lazy";
+      const title = document.createElement("strong");
+      title.textContent = imageLabels[key] || humanize(key);
+      const currentPath = document.createElement("span");
+      currentPath.textContent = path;
+      const file = document.createElement("input");
+      file.type = "file";
+      file.accept = "image/jpeg,image/png,image/webp,image/gif";
+      file.setAttribute("aria-label", `Choose replacement for ${imageLabels[key] || key}`);
+      const uploadButton = document.createElement("button");
+      uploadButton.type = "button";
+      uploadButton.className = "admin-button admin-button-quiet";
+      uploadButton.textContent = "Replace image";
+      uploadButton.addEventListener("click", () => uploadPageImage(key, file, uploadButton, preview, currentPath));
+      card.append(preview, title, currentPath, file, uploadButton);
+      pageImageEditor.append(card);
+    });
+  }
+
+  async function uploadPageImage(target, fileInput, button, preview, currentPath) {
+    if (!fileInput.files[0]) {
+      showStatus(pageStatus, "Choose an image before uploading.", "error");
+      return;
+    }
+    button.disabled = true;
+    showStatus(pageStatus, "Uploading section image…", "");
+    const body = new FormData();
+    body.set("action", "upload-section-image");
+    body.set("target", target);
+    body.set("file", fileInput.files[0]);
+    try {
+      const result = await request("api.php", { method: "POST", body });
+      pageData.images[target] = result.url;
+      preview.src = new URL(result.url, window.location.origin).href;
+      currentPath.textContent = result.url;
+      fileInput.value = "";
+      showStatus(pageStatus, "Image uploaded and published.", "success");
+    } catch (error) {
+      showStatus(pageStatus, error.message, "error");
+    } finally {
+      button.disabled = false;
+    }
   }
 
   function safeMediaUrl(path) {
@@ -140,6 +392,7 @@
   async function loadDashboard() {
     const result = await request("public-content.php", { method: "GET" });
     setPricingForm(result.pricing);
+    renderPageEditor(result.page);
     mediaItems = result.media || [];
     renderMedia();
     showDashboard();
@@ -248,6 +501,24 @@
       showStatus(uploadStatus, error.message, "error");
     } finally {
       button.disabled = false;
+    }
+  });
+
+  savePageButton.addEventListener("click", async () => {
+    savePageButton.disabled = true;
+    showStatus(pageStatus, "Saving website content…", "");
+    try {
+      const result = await request("api.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "save-page", page: pageData }),
+      });
+      renderPageEditor(result.page);
+      showStatus(pageStatus, "Website content saved and published.", "success");
+    } catch (error) {
+      showStatus(pageStatus, error.message, "error");
+    } finally {
+      savePageButton.disabled = false;
     }
   });
 
