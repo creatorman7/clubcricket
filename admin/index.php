@@ -1,4 +1,5 @@
 <?php
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 $isConfigured = is_file(__DIR__ . '/config.php');
 ?>
 <!DOCTYPE html>
@@ -187,6 +188,6 @@ $isConfigured = is_file(__DIR__ . '/config.php');
     </section>
   </main>
 
-  <script src="admin.js" defer></script>
+  <script src="admin.js?v=<?= (string) filemtime(__DIR__ . '/admin.js') ?>" defer></script>
 </body>
 </html>
