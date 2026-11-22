@@ -79,7 +79,7 @@ Open `https://your-domain.com/admin/` and sign in with the admin password config
 - Set the rate season, weekday day/night rates, weekend surcharge, and bowling machine package prices.
 - Publish changes directly to the live website.
 
-The panel requires PHP 8.1+ and writable `admin/data/` and `assets/uploads/` folders. Keep `admin/data/site-content.json` and `assets/uploads/` when deploying future site updates. Follow the [Hostinger setup instructions](./DEPLOYMENT-HOSTINGER.md#admin-panel-setup) once after uploading the website files.
+The panel requires PHP 8.1+ and writable `admin/data/` and `assets/uploads/` folders. `admin/data/site-content.json` is the tracked starter template; live edits are stored in the Git-ignored `admin/data/site-content-live.json`. Preserve that runtime file and `assets/uploads/` when deploying future site updates. Follow the [Hostinger setup instructions](./DEPLOYMENT-HOSTINGER.md#admin-panel-setup) once after uploading the website files.
 
 ### Admin password setup
 
@@ -93,7 +93,7 @@ The panel requires PHP 8.1+ and writable `admin/data/` and `assets/uploads/` fol
 2. In Hostinger File Manager, copy `admin/config.example.php` to `admin/config.php` and replace `REPLACE_WITH_A_PASSWORD_HASH` with the generated hash.
 3. Keep `admin/config.php` private; it is excluded from Git. Use a unique, strong password.
 
-Pricing changes are stored on the server and appear for all website visitors. The existing `assets/js/jsc-config.js` remains the fallback for other settings such as contact details and offers.
+Pricing and page-editor changes are stored in the server-only runtime content file and appear for all website visitors. The tracked `admin/data/site-content.json` is only a starter template. The existing `assets/js/jsc-config.js` remains the fallback for other settings such as contact details and offers.
 
 ### Updating WhatsApp or Contact Phone
 ```javascript
@@ -115,7 +115,7 @@ In `jsc-config.js`, modify the `offers` array. You can set `status: "ACTIVE"` or
 
 ## 4. Replacing Facility Visuals
 
-For ongoing gallery photo and video updates, use the admin panel. Uploaded gallery media is stored in `assets/uploads/`; accepted formats and size limits are shown in the panel. Keep `admin/data/site-content.json` and `assets/uploads/` when deploying future site updates so saved content is not overwritten.
+For ongoing gallery photo and video updates, use the admin panel. Uploaded gallery media is stored in `assets/uploads/`; accepted formats and size limits are shown in the panel. Preserve `admin/data/site-content-live.json` and `assets/uploads/` when deploying future site updates so saved content is not overwritten.
 
 The facility illustrations in `assets/images/facilities/` are separate from the admin-managed gallery. Replacing those visuals still requires updating the corresponding image references in `index.html`.
 

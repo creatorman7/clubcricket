@@ -74,7 +74,7 @@ This guide walks you through deploying the Jimmy Sports Club website to your **H
    unset ADMIN_PASSWORD
    ```
 3. In File Manager, copy `public_html/admin/config.example.php` to `public_html/admin/config.php`. Replace `REPLACE_WITH_A_PASSWORD_HASH` with the generated hash. Do not commit or share `config.php`.
-4. Ensure PHP can write to `public_html/admin/data/` and `public_html/assets/uploads/`. The directory `.htaccess` rules block direct access to private content and prevent uploaded scripts from running.
+4. Ensure PHP can write to `public_html/admin/data/` and `public_html/assets/uploads/`. Live CMS edits are stored in `admin/data/site-content-live.json`, which is excluded from Git; preserve it across deployments. The tracked `site-content.json` is only the starter template. Directory `.htaccess` rules block direct access to private content and prevent uploaded scripts from running.
 5. To support videos up to 100 MB, set PHP `upload_max_filesize` to at least `100M` and `post_max_size` to at least `110M` in hPanel’s PHP configuration. The hosting plan’s limits may be lower.
 6. Visit `https://your-domain.com/admin/`, sign in, and test a section text change, section visibility/order change, image upload, and rate change. The website reads saved content from `admin/public-content.php`.
 
@@ -86,7 +86,7 @@ This guide walks you through deploying the Jimmy Sports Club website to your **H
 2. Note your **FTP Hostname**, **FTP Username**, and **Port (usually 21)**.
 3. Open your FTP client (e.g. FileZilla), enter your credentials, and click **Quickconnect**.
 4. In the remote directory window, open **`public_html`**.
-5. Upload the project files and folders into `public_html`, including hidden `.htaccess` files. On later deployments, do not overwrite `admin/data/site-content.json` or `assets/uploads/`; those contain the rates and gallery media managed in the admin panel.
+5. Upload the project files and folders into `public_html`, including hidden `.htaccess` files. On later deployments, preserve `admin/data/site-content-live.json` and `assets/uploads/`; they contain the CMS edits and uploaded gallery media. The tracked `admin/data/site-content.json` is only the starter template.
 
 ---
 

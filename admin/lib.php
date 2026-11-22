@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-const JSC_CONTENT_FILE = __DIR__ . '/data/site-content.json';
+const JSC_CONTENT_FILE = __DIR__ . '/data/site-content-live.json';
+const JSC_CONTENT_TEMPLATE_FILE = __DIR__ . '/data/site-content.json';
 
 function jsc_json_response(array $payload, int $status = 200): never
 {
@@ -15,7 +16,8 @@ function jsc_json_response(array $payload, int $status = 200): never
 
 function jsc_read_content(): array
 {
-    $contents = file_get_contents(JSC_CONTENT_FILE);
+    $contentFile = is_file(JSC_CONTENT_FILE) ? JSC_CONTENT_FILE : JSC_CONTENT_TEMPLATE_FILE;
+    $contents = file_get_contents($contentFile);
     if ($contents === false) {
         throw new RuntimeException('Unable to read the saved site content.');
     }
